@@ -1,25 +1,30 @@
-import socket
-from pynput.mouse import Controller
+from flask import Flask, request
+from pynput.mouse import Button, Controller
 
 mouse = Controller()
 
-HOST = '0.0.0.0'
-PORT = 12345
+app = Flask(__name__)
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
-    server_socket.bind((HOST, PORT))
-    server_socket.listen()
+@app.route('/')
+def about():
+    return 'Load success'
 
-    print(f"Server listening on {HOST}:{PORT}")
+@app.route('/click', methods=['POST'])
+def receive_click():
+    data = request.get_data(as_text=True)
+    print(f"Received click with data: {data}")
+    # Process the click here
+    if data == "left click":
+        mouse.click(Button.left, 1)
+    elif data == "right click":
+        mouse.click(Button.right, 1)
+    elif data.startswith("move:"):
+        move_instructions = data.split(": ")[1].split(", ")
+        x = float(move_instructions[0])
+        y = float(move_instructions[1])
+        mouse.move(x, y)
 
-    conn, addr = server_socket.accept()
-    with conn:
-        print('Connected by', addr)
-        while True:
-            data = conn.recv(1024)
-            if not data:
-                break
+    return 'Click received successfully'
 
-            decoded_data = data.decode('utf-8')
-            if decoded_data == 'click':
-                mouse.click(mouse.position[0], mouse.position[1], 1)
+if __name__ == '__main__':
+    app.run(host='192.168.86.111', port=5000, debug=True, threaded=False)
