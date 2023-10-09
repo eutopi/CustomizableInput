@@ -14,10 +14,16 @@ def receive_click():
     data = request.get_data(as_text=True)
     print(f"Received click with data: {data}")
     # Process the click here
-    if data == "click":
-        x, y = mouse.position
-        print(x, y)
+    if data == "left click":
         mouse.click(Button.left, 1)
+    elif data == "right click":
+        mouse.click(Button.right, 1)
+    elif data.startswith("move:"):
+        move_instructions = data.split(": ")[1].split(", ")
+        x = float(move_instructions[0])
+        y = float(move_instructions[1])
+        mouse.move(x, y)
+
     return 'Click received successfully'
 
 if __name__ == '__main__':
