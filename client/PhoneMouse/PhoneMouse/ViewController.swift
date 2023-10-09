@@ -17,7 +17,23 @@ class ViewController: UIViewController {
 
     @IBAction func leftMouseClick(_ sender: Any) {
         print("left clicked")
-        sendMessage(message: "click")
+        sendMessage(message: "left click")
+    }
+    
+    @IBAction func rightMouseClick(_ sender: Any) {
+        print("right clicked")
+        sendMessage(message: "right click")
+    }
+    
+    @IBAction func handlePan(_ recognizer: UIPanGestureRecognizer) {
+        guard let recognizerView = recognizer.view else {
+            return
+        }
+        
+        let translation = recognizer.translation(in: view)
+        print(translation.x, translation.y)
+        sendMessage(message: "move: \(translation.x), \(translation.y)")
+        recognizer.setTranslation(.zero, in: view)
     }
     
     func sendMessage(message: String) {
@@ -26,7 +42,6 @@ class ViewController: UIViewController {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = message.data(using: .utf8)
-        print(request)
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
