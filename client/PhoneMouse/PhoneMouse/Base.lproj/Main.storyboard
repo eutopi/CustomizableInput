@@ -20,38 +20,45 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e9q-8F-YN9">
                                 <rect key="frame" x="11" y="393" width="195" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                                <color key="tintColor" red="0.2393121166502091" green="0.30970778094142393" blue="0.33597777061855671" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Left Click"/>
+                                <buttonConfiguration key="configuration" style="filled">
+                                    <color key="baseBackgroundColor" red="0.23931211669999999" green="0.30970778090000001" blue="0.3359777706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </buttonConfiguration>
                                 <connections>
-                                    <action selector="leftMouseClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NWA-dO-3bZ"/>
+                                    <action selector="leftMouseDown:" destination="BYZ-38-t0r" eventType="touchDown" id="QRZ-Gd-d9e"/>
+                                    <action selector="leftMouseUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NR0-iu-Djr"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PgU-gH-LOn">
                                 <rect key="frame" x="209" y="393" width="195" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" red="0.23931211669999999" green="0.30970778090000001" blue="0.3359777706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Right Click"/>
+                                <buttonConfiguration key="configuration" style="filled">
+                                    <color key="baseBackgroundColor" red="0.23931211669999999" green="0.30970778090000001" blue="0.3359777706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </buttonConfiguration>
                                 <connections>
-                                    <action selector="rightMouseClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jN3-dl-Fcg"/>
+                                    <action selector="rightMouseDown:" destination="BYZ-38-t0r" eventType="touchDown" id="eGj-g6-Ufq"/>
+                                    <action selector="rightMouseUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="27S-ZR-Cpx"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <gestureRecognizers/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="OT1-bH-rrq" appends="YES" id="bhK-nF-O1i"/>
-                        </connections>
                     </view>
+                    <connections>
+                        <outlet property="leftButton" destination="e9q-8F-YN9" id="KZ6-ks-09Y"/>
+                        <outlet property="rightButton" destination="PgU-gH-LOn" id="7rd-KZ-YbQ"/>
+                        <outlet property="trackingView" destination="8bC-Xf-vdC" id="OoE-Kh-yAP"/>
+                        <outlet property="view" destination="8bC-Xf-vdC" id="Byi-Kk-v9d"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="OT1-bH-rrq">
-                    <connections>
-                        <action selector="handlePan:" destination="BYZ-38-t0r" id="Xq1-Rx-vLT"/>
-                    </connections>
-                </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="46.564885496183201" y="-2.1126760563380285"/>
+            <point key="canvasLocation" x="46.376811594202906" y="-2.6785714285714284"/>
         </scene>
     </scenes>
     <resources>
