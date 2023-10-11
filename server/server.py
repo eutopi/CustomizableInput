@@ -30,10 +30,15 @@ def receive_touch():
         return 'Right up'
     elif data.startswith("move:"):
         move_instructions = data.split(": ")[1].split(", ")
-        x = float(move_instructions[0])
-        y = float(move_instructions[1])
+        x = int(float((move_instructions[0])))
+        y = int(float(move_instructions[1]))
         mouse.move(x, y)
         return 'Moved'
+    elif data.startswith("scroll:"):
+        scroll_instructions = data.split(": ")[1]
+        y = int(float(scroll_instructions))
+        mouse.scroll(0, y)
+        return 'Scrolled'
 
 if __name__ == '__main__':
     # mac
