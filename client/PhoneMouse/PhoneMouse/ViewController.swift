@@ -43,10 +43,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        startAccelerometerUpdates()
         // Do any additional setup after loading the view.
         initializeGestures()
         initializeButtons()
+        startAccelerometerUpdates()
     }
     
     func initializeGestures() {
@@ -62,12 +62,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         panGestureRecognizer.delegate = self
         trackingView.addGestureRecognizer(panGestureRecognizer)
         
-        panGestureRecognizer.require(toFail: panGestureRecognizerLeftBtn)
-        panGestureRecognizer.require(toFail: panGestureRecognizerRightBtn)
-        
         let panGestureRecognizerScrollbar = UIPanGestureRecognizer(target: self, action: #selector(handleScrollbarTouch(_:)))
         panGestureRecognizerScrollbar.delegate = self
         traditionalScrollbar.addGestureRecognizer(panGestureRecognizerScrollbar)
+        
+        panGestureRecognizer.require(toFail: panGestureRecognizerLeftBtn)
+        panGestureRecognizer.require(toFail: panGestureRecognizerRightBtn)
+        panGestureRecognizer.require(toFail: panGestureRecognizerScrollbar)
     }
     
     func initializeButtons() {
@@ -230,10 +231,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 guard let data = accelerometerData else { return }
                 
                 // Adjust the threshold value as needed
-                let threshold: Double = 0.2
-                
-                if abs(data.acceleration.x) > threshold || abs(data.acceleration.y) > threshold || abs(data.acceleration.z) > threshold {
-                    self.sendMessage(message: "phone moved")
+                let threshold: Double = 0.05
+
+                if abs(data.acceleration.x) > threshold || abs(data.acceleration.y) > threshold {
+                    print("\(data.acceleration.x), \(data.acceleration.y)")
+                    self.sendMessage(message: "move: \(data.acceleration.x * 100), \(-data.acceleration.y * 100)")
                 }
             }
         }
