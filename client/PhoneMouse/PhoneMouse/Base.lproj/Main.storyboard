@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,14 +16,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="iPhone 13 mini - 2" translatesAutoresizingMaskIntoConstraints="NO" id="I83-N6-GHu">
+                                <rect key="frame" x="-25" y="-34" width="470" height="930"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Rectangle 2 (1)" translatesAutoresizingMaskIntoConstraints="NO" id="GeF-gI-wqn">
+                                <rect key="frame" x="-6" y="310" width="427" height="618"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e9q-8F-YN9">
                                 <rect key="frame" x="11" y="393" width="195" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
-                                <color key="tintColor" red="0.2393121166502091" green="0.30970778094142393" blue="0.33597777061855671" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled">
-                                    <color key="baseBackgroundColor" red="0.23931211669999999" green="0.30970778090000001" blue="0.3359777706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="baseBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="leftMouseDown:" destination="BYZ-38-t0r" eventType="touchDown" id="QRZ-Gd-d9e"/>
@@ -34,25 +40,76 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PgU-gH-LOn">
                                 <rect key="frame" x="209" y="393" width="195" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.23931211669999999" green="0.30970778090000001" blue="0.3359777706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled">
-                                    <color key="baseBackgroundColor" red="0.23931211669999999" green="0.30970778090000001" blue="0.3359777706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="baseBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="rightMouseDown:" destination="BYZ-38-t0r" eventType="touchDown" id="eGj-g6-Ufq"/>
                                     <action selector="rightMouseUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="27S-ZR-Cpx"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Traditional" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8uU-zm-7hf">
+                                <rect key="frame" x="0.0" y="757" width="414" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fu4-4k-DCD">
+                                <rect key="frame" x="184" y="796" width="49" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
+                                <color key="onTintColor" red="0.13696202212770653" green="0.31789287713881492" blue="0.79588896040000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="handleSwitchChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Rgt-4I-rVH"/>
+                                </connections>
+                            </switch>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Frame 23 (1)" translatesAutoresizingMaskIntoConstraints="NO" id="XhU-VN-Qoh">
+                                <rect key="frame" x="170" y="252" width="75" height="177"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jXZ-nW-ee5">
+                                <rect key="frame" x="26" y="342" width="136" height="161"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled">
+                                    <color key="baseBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="leftMouseDown:" destination="BYZ-38-t0r" eventType="touchDown" id="gVZ-la-Gus"/>
+                                    <action selector="leftMouseUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="v48-l7-jYM"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nvT-QB-WvB">
+                                <rect key="frame" x="253" y="342" width="136" height="161"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled">
+                                    <color key="baseBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="rightMouseDown:" destination="BYZ-38-t0r" eventType="touchDown" id="Zsp-dk-7ib"/>
+                                    <action selector="rightMouseUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fUH-Kw-NIA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                     </view>
                     <connections>
                         <outlet property="leftButton" destination="e9q-8F-YN9" id="KZ6-ks-09Y"/>
+                        <outlet property="leftButtonPhysical" destination="jXZ-nW-ee5" id="MSk-L9-rqD"/>
+                        <outlet property="mouseModeToggleLabel" destination="8uU-zm-7hf" id="OQh-YD-vKp"/>
                         <outlet property="rightButton" destination="PgU-gH-LOn" id="7rd-KZ-YbQ"/>
+                        <outlet property="rightButtonPhysical" destination="nvT-QB-WvB" id="F4D-N6-FuB"/>
                         <outlet property="trackingView" destination="8bC-Xf-vdC" id="OoE-Kh-yAP"/>
+                        <outlet property="traditionalBG1" destination="GeF-gI-wqn" id="Fno-Tc-Kmt"/>
+                        <outlet property="traditionalBG2" destination="I83-N6-GHu" id="251-mO-qJY"/>
+                        <outlet property="traditionalScrollbar" destination="XhU-VN-Qoh" id="wCm-Ve-Ods"/>
                         <outlet property="view" destination="8bC-Xf-vdC" id="Byi-Kk-v9d"/>
                     </connections>
                 </viewController>
@@ -62,8 +119,8 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="Frame 23 (1)" width="512" height="1289"/>
+        <image name="Rectangle 2 (1)" width="512" height="755"/>
+        <image name="iPhone 13 mini - 2" width="1500" height="3248"/>
     </resources>
 </document>
