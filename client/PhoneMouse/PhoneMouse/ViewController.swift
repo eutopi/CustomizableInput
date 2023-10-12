@@ -53,10 +53,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         let panGestureRecognizerLeftBtn = UIPanGestureRecognizer(target: self, action: #selector(handlePanLeftMouse(_:)))
         panGestureRecognizerLeftBtn.delegate = self
         leftButton.addGestureRecognizer(panGestureRecognizerLeftBtn)
-        
         let panGestureRecognizerRightBtn = UIPanGestureRecognizer(target: self, action: #selector(handlePanRightMouse(_:)))
         panGestureRecognizerRightBtn.delegate = self
         rightButton.addGestureRecognizer(panGestureRecognizerRightBtn)
+        
+        let panGestureRecognizerPhysicalLeftBtn = UIPanGestureRecognizer(target: self, action: #selector(handlePanPhysicalLeftMouse(_:)))
+        panGestureRecognizerPhysicalLeftBtn.delegate = self
+        leftButtonPhysical.addGestureRecognizer(panGestureRecognizerPhysicalLeftBtn)
+        let panGestureRecognizerPhysicalRightBtn = UIPanGestureRecognizer(target: self, action: #selector(handlePanPhysicalRightMouse(_:)))
+        panGestureRecognizerPhysicalRightBtn.delegate = self
+        rightButtonPhysical.addGestureRecognizer(panGestureRecognizerPhysicalRightBtn)
         
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         panGestureRecognizer.delegate = self
@@ -68,6 +74,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         
         panGestureRecognizer.require(toFail: panGestureRecognizerLeftBtn)
         panGestureRecognizer.require(toFail: panGestureRecognizerRightBtn)
+        panGestureRecognizer.require(toFail: panGestureRecognizerPhysicalLeftBtn)
+        panGestureRecognizer.require(toFail: panGestureRecognizerPhysicalRightBtn)
         panGestureRecognizer.require(toFail: panGestureRecognizerScrollbar)
     }
     
@@ -107,8 +115,18 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // on screen touch events
     
+    func makeTapSound() {
+        // Create a feedback generator
+        let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+
+        // Trigger the feedback
+        feedbackGenerator.prepare()
+        feedbackGenerator.impactOccurred()
+    }
+    
     @IBAction func leftMouseDown(_ sender: Any) {
         print("left click down")
+        makeTapSound()
         sendMessage(message: "left down")
     }
     
@@ -119,6 +137,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBAction func rightMouseDown(_ sender: Any) {
         print("right click down")
+        makeTapSound()
         sendMessage(message: "right down")
     }
     
@@ -160,7 +179,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func handlePanLeftMouse(_ recognizer: UIPanGestureRecognizer) {
-        if mouseMode != "trackpad" { return }
         switch recognizer.state {
             case .changed:
                 let translation = recognizer.translation(in: trackingView)
@@ -175,8 +193,17 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    @IBAction func handlePanPhysicalLeftMouse(_ recognizer: UIPanGestureRecognizer) {
+        switch recognizer.state {
+            case .ended, .cancelled, .failed:
+                print("left click up")
+                sendMessage(message: "left up")
+            default:
+                break
+        }
+    }
+    
     @IBAction func handlePanRightMouse(_ recognizer: UIPanGestureRecognizer) {
-        if mouseMode != "trackpad" { return }
         switch recognizer.state {
             case .changed:
                 let translation = recognizer.translation(in: trackingView)
@@ -191,10 +218,19 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    @IBAction func handlePanPhysicalRightMouse(_ recognizer: UIPanGestureRecognizer) {
+        switch recognizer.state {
+            case .ended, .cancelled, .failed:
+                print("right click up")
+                sendMessage(message: "right up")
+            default:
+                break
+        }
+    }
+    
     
     @IBAction func handleSwitchChanged(_ sender: UISwitch) {
         if sender.isOn {
-            
             leftButton.isHidden = true
             rightButton.isHidden = true
             leftButtonPhysical.isHidden = false
@@ -205,6 +241,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             mouseMode = "traditional"
             mouseModeToggleLabel.text = "Traditional"
             mouseModeToggleLabel.textColor = .white
+            startAccelerometerUpdates()
         }
         else {
             leftButton.isHidden = false
@@ -218,6 +255,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             mouseMode = "trackpad"
             mouseModeToggleLabel.text = "Trackpad"
             mouseModeToggleLabel.textColor = .black
+            stopAccelerometerUpdates()
         }
     }
     
