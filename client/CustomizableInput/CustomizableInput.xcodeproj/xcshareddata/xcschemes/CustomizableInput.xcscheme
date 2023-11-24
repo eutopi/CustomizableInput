@@ -28,30 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       shouldAutocreateTestPlan = "YES">
-      <Testables>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0AE756822AD45AF500E7CA5F"
-               BuildableName = "CustomizableInputTests.xctest"
-               BlueprintName = "CustomizableInputTests"
-               ReferencedContainer = "container:CustomizableInput.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0AE7568C2AD45AF500E7CA5F"
-               BuildableName = "CustomizableInputUITests.xctest"
-               BlueprintName = "CustomizableInputUITests"
-               ReferencedContainer = "container:CustomizableInput.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"

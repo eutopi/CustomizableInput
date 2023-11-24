@@ -24,14 +24,14 @@
 			containerPortal = 0AE756652AD45AF300E7CA5F /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 0AE7566C2AD45AF300E7CA5F;
-			remoteInfo = PhoneMouse;
+			remoteInfo = CustomizableInput;
 		};
 		0AE7568E2AD45AF500E7CA5F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0AE756652AD45AF300E7CA5F /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 0AE7566C2AD45AF300E7CA5F;
-			remoteInfo = PhoneMouse;
+			remoteInfo = CustomizableInput;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -143,7 +143,7 @@
 			dependencies = (
 			);
 			name = CustomizableInput;
-			productName = PhoneMouse;
+			productName = CustomizableInput;
 			productReference = 0AE7566D2AD45AF300E7CA5F /* CustomizableInput.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -161,7 +161,7 @@
 				0AE756852AD45AF500E7CA5F /* PBXTargetDependency */,
 			);
 			name = CustomizableInputTests;
-			productName = PhoneMouseTests;
+			productName = CustomizableInputTests;
 			productReference = 0AE756832AD45AF500E7CA5F /* CustomizableInputTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -179,7 +179,7 @@
 				0AE7568F2AD45AF500E7CA5F /* PBXTargetDependency */,
 			);
 			name = CustomizableInputUITests;
-			productName = PhoneMouseUITests;
+			productName = CustomizableInputUITests;
 			productReference = 0AE7568D2AD45AF500E7CA5F /* CustomizableInputUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
@@ -437,9 +437,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = HFKT386ZD6;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PhoneMouse/Info.plist;
+				INFOPLIST_FILE = CustomizableInput/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -451,7 +451,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = eutopi.PhoneMouse;
+				PRODUCT_BUNDLE_IDENTIFIER = eutopi.CustomizableInput;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -469,9 +469,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = HFKT386ZD6;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PhoneMouse/Info.plist;
+				INFOPLIST_FILE = CustomizableInput/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -483,7 +483,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = eutopi.PhoneMouse;
+				PRODUCT_BUNDLE_IDENTIFIER = eutopi.CustomizableInput;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -505,7 +505,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = eutopi.PhoneMouseTests;
+				PRODUCT_BUNDLE_IDENTIFIER = eutopi.CustomizableInputTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -525,7 +525,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = eutopi.PhoneMouseTests;
+				PRODUCT_BUNDLE_IDENTIFIER = eutopi.CustomizableInputTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -543,12 +543,12 @@
 				DEVELOPMENT_TEAM = HFKT386ZD6;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = eutopi.PhoneMouseUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = eutopi.CustomizableInputUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = PhoneMouse;
+				TEST_TARGET_NAME = CustomizableInput;
 			};
 			name = Debug;
 		};
@@ -561,12 +561,12 @@
 				DEVELOPMENT_TEAM = HFKT386ZD6;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = eutopi.PhoneMouseUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = eutopi.CustomizableInputUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = PhoneMouse;
+				TEST_TARGET_NAME = CustomizableInput;
 			};
 			name = Release;
 		};
