@@ -1,13 +1,13 @@
 //
-//  PhoneMouseUITestsLaunchTests.swift
-//  PhoneMouseUITests
+//  CustomizableInputUITestsLaunchTests.swift
+//  CustomizableInputUITests
 //
 //  Created by Tongyu Zhou on 10/9/23.
 //
 
 import XCTest
 
-final class PhoneMouseUITestsLaunchTests: XCTestCase {
+final class CustomizableInputUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

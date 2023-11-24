@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  PhoneMouse
+//  CustomizableInput
 //
 //  Created by Tongyu Zhou on 10/9/23.
 //

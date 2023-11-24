@@ -13,9 +13,9 @@
 		0AE756782AD45AF300E7CA5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AE756762AD45AF300E7CA5F /* Main.storyboard */; };
 		0AE7567A2AD45AF500E7CA5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AE756792AD45AF500E7CA5F /* Assets.xcassets */; };
 		0AE7567D2AD45AF500E7CA5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AE7567B2AD45AF500E7CA5F /* LaunchScreen.storyboard */; };
-		0AE756882AD45AF500E7CA5F /* PhoneMouseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE756872AD45AF500E7CA5F /* PhoneMouseTests.swift */; };
-		0AE756922AD45AF500E7CA5F /* PhoneMouseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE756912AD45AF500E7CA5F /* PhoneMouseUITests.swift */; };
-		0AE756942AD45AF500E7CA5F /* PhoneMouseUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE756932AD45AF500E7CA5F /* PhoneMouseUITestsLaunchTests.swift */; };
+		0AE756882AD45AF500E7CA5F /* CustomizableInputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE756872AD45AF500E7CA5F /* CustomizableInputTests.swift */; };
+		0AE756922AD45AF500E7CA5F /* CustomizableInputUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE756912AD45AF500E7CA5F /* CustomizableInputUITests.swift */; };
+		0AE756942AD45AF500E7CA5F /* CustomizableInputUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE756932AD45AF500E7CA5F /* CustomizableInputUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0AE7566D2AD45AF300E7CA5F /* PhoneMouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhoneMouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0AE7566D2AD45AF300E7CA5F /* CustomizableInput.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomizableInput.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AE756702AD45AF300E7CA5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0AE756722AD45AF300E7CA5F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0AE756742AD45AF300E7CA5F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -44,11 +44,11 @@
 		0AE756792AD45AF500E7CA5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0AE7567C2AD45AF500E7CA5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0AE7567E2AD45AF500E7CA5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0AE756832AD45AF500E7CA5F /* PhoneMouseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhoneMouseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0AE756872AD45AF500E7CA5F /* PhoneMouseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneMouseTests.swift; sourceTree = "<group>"; };
-		0AE7568D2AD45AF500E7CA5F /* PhoneMouseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhoneMouseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0AE756912AD45AF500E7CA5F /* PhoneMouseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneMouseUITests.swift; sourceTree = "<group>"; };
-		0AE756932AD45AF500E7CA5F /* PhoneMouseUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneMouseUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		0AE756832AD45AF500E7CA5F /* CustomizableInputTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CustomizableInputTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0AE756872AD45AF500E7CA5F /* CustomizableInputTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizableInputTests.swift; sourceTree = "<group>"; };
+		0AE7568D2AD45AF500E7CA5F /* CustomizableInputUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CustomizableInputUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0AE756912AD45AF500E7CA5F /* CustomizableInputUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizableInputUITests.swift; sourceTree = "<group>"; };
+		0AE756932AD45AF500E7CA5F /* CustomizableInputUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizableInputUITestsLaunchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,9 +79,9 @@
 		0AE756642AD45AF300E7CA5F = {
 			isa = PBXGroup;
 			children = (
-				0AE7566F2AD45AF300E7CA5F /* PhoneMouse */,
-				0AE756862AD45AF500E7CA5F /* PhoneMouseTests */,
-				0AE756902AD45AF500E7CA5F /* PhoneMouseUITests */,
+				0AE7566F2AD45AF300E7CA5F /* CustomizableInput */,
+				0AE756862AD45AF500E7CA5F /* CustomizableInputTests */,
+				0AE756902AD45AF500E7CA5F /* CustomizableInputUITests */,
 				0AE7566E2AD45AF300E7CA5F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -89,14 +89,14 @@
 		0AE7566E2AD45AF300E7CA5F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0AE7566D2AD45AF300E7CA5F /* PhoneMouse.app */,
-				0AE756832AD45AF500E7CA5F /* PhoneMouseTests.xctest */,
-				0AE7568D2AD45AF500E7CA5F /* PhoneMouseUITests.xctest */,
+				0AE7566D2AD45AF300E7CA5F /* CustomizableInput.app */,
+				0AE756832AD45AF500E7CA5F /* CustomizableInputTests.xctest */,
+				0AE7568D2AD45AF500E7CA5F /* CustomizableInputUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0AE7566F2AD45AF300E7CA5F /* PhoneMouse */ = {
+		0AE7566F2AD45AF300E7CA5F /* CustomizableInput */ = {
 			isa = PBXGroup;
 			children = (
 				0AE756702AD45AF300E7CA5F /* AppDelegate.swift */,
@@ -107,32 +107,32 @@
 				0AE7567B2AD45AF500E7CA5F /* LaunchScreen.storyboard */,
 				0AE7567E2AD45AF500E7CA5F /* Info.plist */,
 			);
-			path = PhoneMouse;
+			path = CustomizableInput;
 			sourceTree = "<group>";
 		};
-		0AE756862AD45AF500E7CA5F /* PhoneMouseTests */ = {
+		0AE756862AD45AF500E7CA5F /* CustomizableInputTests */ = {
 			isa = PBXGroup;
 			children = (
-				0AE756872AD45AF500E7CA5F /* PhoneMouseTests.swift */,
+				0AE756872AD45AF500E7CA5F /* CustomizableInputTests.swift */,
 			);
-			path = PhoneMouseTests;
+			path = CustomizableInputTests;
 			sourceTree = "<group>";
 		};
-		0AE756902AD45AF500E7CA5F /* PhoneMouseUITests */ = {
+		0AE756902AD45AF500E7CA5F /* CustomizableInputUITests */ = {
 			isa = PBXGroup;
 			children = (
-				0AE756912AD45AF500E7CA5F /* PhoneMouseUITests.swift */,
-				0AE756932AD45AF500E7CA5F /* PhoneMouseUITestsLaunchTests.swift */,
+				0AE756912AD45AF500E7CA5F /* CustomizableInputUITests.swift */,
+				0AE756932AD45AF500E7CA5F /* CustomizableInputUITestsLaunchTests.swift */,
 			);
-			path = PhoneMouseUITests;
+			path = CustomizableInputUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0AE7566C2AD45AF300E7CA5F /* PhoneMouse */ = {
+		0AE7566C2AD45AF300E7CA5F /* CustomizableInput */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0AE756972AD45AF500E7CA5F /* Build configuration list for PBXNativeTarget "PhoneMouse" */;
+			buildConfigurationList = 0AE756972AD45AF500E7CA5F /* Build configuration list for PBXNativeTarget "CustomizableInput" */;
 			buildPhases = (
 				0AE756692AD45AF300E7CA5F /* Sources */,
 				0AE7566A2AD45AF300E7CA5F /* Frameworks */,
@@ -142,14 +142,14 @@
 			);
 			dependencies = (
 			);
-			name = PhoneMouse;
+			name = CustomizableInput;
 			productName = PhoneMouse;
-			productReference = 0AE7566D2AD45AF300E7CA5F /* PhoneMouse.app */;
+			productReference = 0AE7566D2AD45AF300E7CA5F /* CustomizableInput.app */;
 			productType = "com.apple.product-type.application";
 		};
-		0AE756822AD45AF500E7CA5F /* PhoneMouseTests */ = {
+		0AE756822AD45AF500E7CA5F /* CustomizableInputTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0AE7569A2AD45AF500E7CA5F /* Build configuration list for PBXNativeTarget "PhoneMouseTests" */;
+			buildConfigurationList = 0AE7569A2AD45AF500E7CA5F /* Build configuration list for PBXNativeTarget "CustomizableInputTests" */;
 			buildPhases = (
 				0AE7567F2AD45AF500E7CA5F /* Sources */,
 				0AE756802AD45AF500E7CA5F /* Frameworks */,
@@ -160,14 +160,14 @@
 			dependencies = (
 				0AE756852AD45AF500E7CA5F /* PBXTargetDependency */,
 			);
-			name = PhoneMouseTests;
+			name = CustomizableInputTests;
 			productName = PhoneMouseTests;
-			productReference = 0AE756832AD45AF500E7CA5F /* PhoneMouseTests.xctest */;
+			productReference = 0AE756832AD45AF500E7CA5F /* CustomizableInputTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		0AE7568C2AD45AF500E7CA5F /* PhoneMouseUITests */ = {
+		0AE7568C2AD45AF500E7CA5F /* CustomizableInputUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0AE7569D2AD45AF500E7CA5F /* Build configuration list for PBXNativeTarget "PhoneMouseUITests" */;
+			buildConfigurationList = 0AE7569D2AD45AF500E7CA5F /* Build configuration list for PBXNativeTarget "CustomizableInputUITests" */;
 			buildPhases = (
 				0AE756892AD45AF500E7CA5F /* Sources */,
 				0AE7568A2AD45AF500E7CA5F /* Frameworks */,
@@ -178,9 +178,9 @@
 			dependencies = (
 				0AE7568F2AD45AF500E7CA5F /* PBXTargetDependency */,
 			);
-			name = PhoneMouseUITests;
+			name = CustomizableInputUITests;
 			productName = PhoneMouseUITests;
-			productReference = 0AE7568D2AD45AF500E7CA5F /* PhoneMouseUITests.xctest */;
+			productReference = 0AE7568D2AD45AF500E7CA5F /* CustomizableInputUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -206,7 +206,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0AE756682AD45AF300E7CA5F /* Build configuration list for PBXProject "PhoneMouse" */;
+			buildConfigurationList = 0AE756682AD45AF300E7CA5F /* Build configuration list for PBXProject "CustomizableInput" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -219,9 +219,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0AE7566C2AD45AF300E7CA5F /* PhoneMouse */,
-				0AE756822AD45AF500E7CA5F /* PhoneMouseTests */,
-				0AE7568C2AD45AF500E7CA5F /* PhoneMouseUITests */,
+				0AE7566C2AD45AF300E7CA5F /* CustomizableInput */,
+				0AE756822AD45AF500E7CA5F /* CustomizableInputTests */,
+				0AE7568C2AD45AF500E7CA5F /* CustomizableInputUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -268,7 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0AE756882AD45AF500E7CA5F /* PhoneMouseTests.swift in Sources */,
+				0AE756882AD45AF500E7CA5F /* CustomizableInputTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,8 +276,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0AE756922AD45AF500E7CA5F /* PhoneMouseUITests.swift in Sources */,
-				0AE756942AD45AF500E7CA5F /* PhoneMouseUITestsLaunchTests.swift in Sources */,
+				0AE756922AD45AF500E7CA5F /* CustomizableInputUITests.swift in Sources */,
+				0AE756942AD45AF500E7CA5F /* CustomizableInputUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,12 +286,12 @@
 /* Begin PBXTargetDependency section */
 		0AE756852AD45AF500E7CA5F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 0AE7566C2AD45AF300E7CA5F /* PhoneMouse */;
+			target = 0AE7566C2AD45AF300E7CA5F /* CustomizableInput */;
 			targetProxy = 0AE756842AD45AF500E7CA5F /* PBXContainerItemProxy */;
 		};
 		0AE7568F2AD45AF500E7CA5F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 0AE7566C2AD45AF300E7CA5F /* PhoneMouse */;
+			target = 0AE7566C2AD45AF300E7CA5F /* CustomizableInput */;
 			targetProxy = 0AE7568E2AD45AF500E7CA5F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -510,7 +510,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PhoneMouse.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PhoneMouse";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CustomizableInput.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CustomizableInput";
 			};
 			name = Debug;
 		};
@@ -530,7 +530,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PhoneMouse.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PhoneMouse";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CustomizableInput.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CustomizableInput";
 			};
 			name = Release;
 		};
@@ -573,7 +573,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0AE756682AD45AF300E7CA5F /* Build configuration list for PBXProject "PhoneMouse" */ = {
+		0AE756682AD45AF300E7CA5F /* Build configuration list for PBXProject "CustomizableInput" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0AE756952AD45AF500E7CA5F /* Debug */,
@@ -582,7 +582,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0AE756972AD45AF500E7CA5F /* Build configuration list for PBXNativeTarget "PhoneMouse" */ = {
+		0AE756972AD45AF500E7CA5F /* Build configuration list for PBXNativeTarget "CustomizableInput" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0AE756982AD45AF500E7CA5F /* Debug */,
@@ -591,7 +591,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0AE7569A2AD45AF500E7CA5F /* Build configuration list for PBXNativeTarget "PhoneMouseTests" */ = {
+		0AE7569A2AD45AF500E7CA5F /* Build configuration list for PBXNativeTarget "CustomizableInputTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0AE7569B2AD45AF500E7CA5F /* Debug */,
@@ -600,7 +600,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0AE7569D2AD45AF500E7CA5F /* Build configuration list for PBXNativeTarget "PhoneMouseUITests" */ = {
+		0AE7569D2AD45AF500E7CA5F /* Build configuration list for PBXNativeTarget "CustomizableInputUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0AE7569E2AD45AF500E7CA5F /* Debug */,
