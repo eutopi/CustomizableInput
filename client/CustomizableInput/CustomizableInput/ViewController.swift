@@ -28,6 +28,10 @@ extension UIColor {
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet var trackingView: UIView!
+    @IBOutlet weak var canvasView: UIView!
+    
+    @IBOutlet weak var canvas: UIView!
+    
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var rightButton: UIButton!
     @IBOutlet var mouseModeToggleLabel: UILabel!
@@ -44,9 +48,15 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        initializeGestures()
-        initializeButtons()
-        startAccelerometerUpdates()
+//        initializeGestures()
+//        initializeButtons()
+//        startAccelerometerUpdates()
+        initializeCanvas()
+    }
+    
+    func initializeCanvas() {
+        canvasView.layer.cornerRadius = 15;
+        canvasView.layer.masksToBounds = true;
     }
     
     func initializeGestures() {
