@@ -67,6 +67,7 @@
                         <gestureRecognizers/>
                     </view>
                     <connections>
+                        <outlet property="canvasTitleTextField" destination="Qng-B3-q2a" id="9FZ-Jh-jof"/>
                         <outlet property="canvasView" destination="naa-15-0lU" id="lYc-ph-87t"/>
                         <outlet property="trackingView" destination="8bC-Xf-vdC" id="OoE-Kh-yAP"/>
                         <outlet property="view" destination="8bC-Xf-vdC" id="Byi-Kk-v9d"/>

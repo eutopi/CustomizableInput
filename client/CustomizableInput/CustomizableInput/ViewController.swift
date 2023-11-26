@@ -25,11 +25,12 @@ extension UIColor {
     }
 }
 
-class ViewController: UIViewController, UIGestureRecognizerDelegate {
+class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate {
     
     @IBOutlet var trackingView: UIView!
     @IBOutlet weak var canvasView: UIView!
     
+    @IBOutlet weak var canvasTitleTextField: UITextField!
     @IBOutlet weak var canvas: UIView!
     
     @IBOutlet weak var leftButton: UIButton!
@@ -57,6 +58,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     func initializeCanvas() {
         canvasView.layer.cornerRadius = 15;
         canvasView.layer.masksToBounds = true;
+        self.canvasTitleTextField.delegate = self
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     func initializeGestures() {
