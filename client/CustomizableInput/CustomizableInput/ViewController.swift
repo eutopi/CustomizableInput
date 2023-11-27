@@ -25,6 +25,11 @@ extension UIColor {
     }
 }
 
+class CustomPanGestureRecognizer: UIPanGestureRecognizer {
+    var bindedModule: UIImageView?
+    var outputModule: UIView?
+}
+
 class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate {
     
     @IBOutlet var trackingView: UIView!
@@ -33,6 +38,17 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
     @IBOutlet weak var canvasTitleTextField: UITextField!
     @IBOutlet weak var canvas: UIView!
     
+    @IBOutlet weak var moduleSliderBtn: UIImageView!
+    @IBOutlet weak var moduleToggleBtn: UIImageView!
+    @IBOutlet weak var moduleJoystickBtn: UIImageView!
+    @IBOutlet weak var moduleButtonBtn: UIImageView!
+    @IBOutlet weak var modulePickerBtn: UIImageView!
+    
+    
+    var copiedImageView: UIImageView?
+    var slider: UISlider?
+    
+    // previous stuff, remove later
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var rightButton: UIButton!
     @IBOutlet var mouseModeToggleLabel: UILabel!
@@ -49,7 +65,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-//        initializeGestures()
 //        initializeButtons()
 //        startAccelerometerUpdates()
         initializeCanvas()
@@ -59,11 +74,73 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
         canvasView.layer.cornerRadius = 15;
         canvasView.layer.masksToBounds = true;
         self.canvasTitleTextField.delegate = self
+        
+        // Initialize slider gestures
+        let panGestureSlider = CustomPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+        panGestureSlider.bindedModule = moduleSliderBtn
+        panGestureSlider.outputModule = UISlider()
+        moduleSliderBtn.addGestureRecognizer(panGestureSlider)
+        
+        // Initialize toggle gestures
+        let panGestureToggle = CustomPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+        panGestureToggle.bindedModule = moduleToggleBtn
+        panGestureToggle.outputModule = UISwitch()
+        moduleToggleBtn.addGestureRecognizer(panGestureToggle)
+        
+        // Initialize joystick gestures
+        let panGestureJoystick = CustomPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+        panGestureJoystick.bindedModule = moduleJoystickBtn
+        panGestureJoystick.outputModule = UISlider()
+        moduleJoystickBtn.addGestureRecognizer(panGestureJoystick)
+        
+        // Initialize button gestures
+        let panGestureButton = CustomPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+        panGestureButton.bindedModule = moduleButtonBtn
+        panGestureButton.outputModule = UIButton()
+        moduleButtonBtn.addGestureRecognizer(panGestureButton)
+        
+        // Initialize picker gestures
+        let panGesturePicker = CustomPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+        panGesturePicker.bindedModule = modulePickerBtn
+        panGesturePicker.outputModule = UIColorWell()
+        modulePickerBtn.addGestureRecognizer(panGesturePicker)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    @objc func handlePan(_ gesture: CustomPanGestureRecognizer) {
+        let translation = gesture.translation(in: trackingView)
+
+        if let bindedModule = gesture.bindedModule  {
+            if gesture.state == .began {
+                // Create a copy of the original image view only once
+                copiedImageView = UIImageView(image: bindedModule.image)
+                copiedImageView?.frame = bindedModule.frame
+                trackingView.addSubview(copiedImageView!)
+            }
+            
+            // Update the position of the copied image view as the user pans
+            copiedImageView?.center = CGPoint(x: copiedImageView!.center.x + translation.x, y: copiedImageView!.center.y + translation.y)
+            
+            if gesture.state == .ended {
+                print("object dropped")
+                if let copiedImageView = copiedImageView, canvasView.frame.contains(copiedImageView.frame.origin) {
+                    let convertedFrame = trackingView.convert(copiedImageView.frame, to: canvasView)
+                    
+                    copiedImageView.removeFromSuperview()
+                    let slider = UISlider(frame: convertedFrame)
+                    canvasView.addSubview(slider)
+                } else {
+                    copiedImageView?.removeFromSuperview()
+                }
+            }
+            
+            // Reset the translation to avoid accumulation
+            gesture.setTranslation(.zero, in: trackingView)
+        }
     }
     
     func initializeGestures() {
@@ -94,40 +171,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
         panGestureRecognizer.require(toFail: panGestureRecognizerPhysicalLeftBtn)
         panGestureRecognizer.require(toFail: panGestureRecognizerPhysicalRightBtn)
         panGestureRecognizer.require(toFail: panGestureRecognizerScrollbar)
-    }
-    
-    func initializeButtons() {
-        leftButton.backgroundColor = UIColor(hex: "#2047C4")
-        rightButton.backgroundColor = UIColor(hex: "#2047C4")
-        leftButton.layer.cornerRadius = 5
-        rightButton.layer.cornerRadius = 5
-        leftButton.isHidden = true
-        rightButton.isHidden = true
-        
-        let maskLayerLeft = CAShapeLayer()
-        maskLayerLeft.path = UIBezierPath(
-            roundedRect: leftButtonPhysical.bounds,
-            byRoundingCorners: [.topRight, .bottomRight],
-            cornerRadii: CGSize(width: 10, height: 10)
-        ).cgPath
-        
-        let maskLayerRight = CAShapeLayer()
-        maskLayerRight.path = UIBezierPath(
-            roundedRect: rightButtonPhysical.bounds,
-            byRoundingCorners: [.topLeft, .bottomLeft],
-            cornerRadii: CGSize(width: 10, height: 10)
-        ).cgPath
-        
-        
-        leftButtonPhysical.backgroundColor = .white
-        leftButtonPhysical.layer.cornerRadius = 35
-        leftButtonPhysical.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
-        leftButtonPhysical.layer.mask = maskLayerLeft
-        
-        rightButtonPhysical.backgroundColor = .white
-        rightButtonPhysical.layer.cornerRadius = 35
-        rightButtonPhysical.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
-        rightButtonPhysical.layer.mask = maskLayerRight
     }
     
     // on screen touch events
@@ -176,24 +219,24 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
         }
     }
     
-    @IBAction func handlePan(_ recognizer: UIPanGestureRecognizer) {
-        if mouseMode != "trackpad" { return }
-        let numberOfTouches = recognizer.numberOfTouches
-        switch recognizer.state {
-            case .changed:
-                let translation = recognizer.translation(in: trackingView)
-                print("Finger moved by (\(translation.x), \(translation.y))")
-                if (numberOfTouches == 1) {
-                    sendMessage(message: "move: \(translation.x), \(translation.y)")
-                }
-                else if (numberOfTouches == 2) {
-                    sendMessage(message: "scroll: \(translation.y)")
-                }
-                recognizer.setTranslation(.zero, in: trackingView)
-            default:
-                break
-        }
-    }
+//    @IBAction func handlePan(_ recognizer: UIPanGestureRecognizer) {
+//        if mouseMode != "trackpad" { return }
+//        let numberOfTouches = recognizer.numberOfTouches
+//        switch recognizer.state {
+//            case .changed:
+//                let translation = recognizer.translation(in: trackingView)
+//                print("Finger moved by (\(translation.x), \(translation.y))")
+//                if (numberOfTouches == 1) {
+//                    sendMessage(message: "move: \(translation.x), \(translation.y)")
+//                }
+//                else if (numberOfTouches == 2) {
+//                    sendMessage(message: "scroll: \(translation.y)")
+//                }
+//                recognizer.setTranslation(.zero, in: trackingView)
+//            default:
+//                break
+//        }
+//    }
     
     @IBAction func handlePanLeftMouse(_ recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
