@@ -96,7 +96,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
         // Initialize button gestures
         let panGestureButton = CustomPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         panGestureButton.bindedModule = moduleButtonBtn
-        panGestureButton.outputModule = UIButton()
+        panGestureButton.outputModule = UIButton(type: .system)
         moduleButtonBtn.addGestureRecognizer(panGestureButton)
         
         // Initialize picker gestures
@@ -114,32 +114,34 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
     @objc func handlePan(_ gesture: CustomPanGestureRecognizer) {
         let translation = gesture.translation(in: trackingView)
 
-        if let bindedModule = gesture.bindedModule  {
-            if gesture.state == .began {
-                // Create a copy of the original image view only once
-                copiedImageView = UIImageView(image: bindedModule.image)
-                copiedImageView?.frame = bindedModule.frame
-                trackingView.addSubview(copiedImageView!)
-            }
-            
-            // Update the position of the copied image view as the user pans
-            copiedImageView?.center = CGPoint(x: copiedImageView!.center.x + translation.x, y: copiedImageView!.center.y + translation.y)
-            
-            if gesture.state == .ended {
-                print("object dropped")
-                if let copiedImageView = copiedImageView, canvasView.frame.contains(copiedImageView.frame.origin) {
-                    let convertedFrame = trackingView.convert(copiedImageView.frame, to: canvasView)
-                    
-                    copiedImageView.removeFromSuperview()
-                    let slider = UISlider(frame: convertedFrame)
-                    canvasView.addSubview(slider)
-                } else {
-                    copiedImageView?.removeFromSuperview()
+        if let bindedModule = gesture.bindedModule {
+            if let outputModule = gesture.outputModule {
+                if gesture.state == .began {
+                    // Create a copy of the original image view only once
+                    copiedImageView = UIImageView(image: bindedModule.image)
+                    copiedImageView?.frame = bindedModule.frame
+                    trackingView.addSubview(copiedImageView!)
                 }
+                
+                // Update the position of the copied image view as the user pans
+                copiedImageView?.center = CGPoint(x: copiedImageView!.center.x + translation.x, y: copiedImageView!.center.y + translation.y)
+                
+                if gesture.state == .ended {
+                    print("object dropped")
+                    if let copiedImageView = copiedImageView, canvasView.frame.contains(copiedImageView.frame.origin) {
+                        let convertedFrame = trackingView.convert(copiedImageView.frame, to: canvasView)
+                        
+                        copiedImageView.removeFromSuperview()
+                        outputModule.frame = convertedFrame
+                        canvasView.addSubview(outputModule)
+                    } else {
+                        copiedImageView?.removeFromSuperview()
+                    }
+                }
+                
+                // Reset the translation to avoid accumulation
+                gesture.setTranslation(.zero, in: trackingView)
             }
-            
-            // Reset the translation to avoid accumulation
-            gesture.setTranslation(.zero, in: trackingView)
         }
     }
     
