@@ -78,7 +78,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
         // Initialize slider gestures
         let panGestureSlider = CustomPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         panGestureSlider.bindedModule = moduleSliderBtn
-        panGestureSlider.outputModule = UISlider()
+        panGestureSlider.outputModule = CustomSlider()
         moduleSliderBtn.addGestureRecognizer(panGestureSlider)
         
         // Initialize toggle gestures
