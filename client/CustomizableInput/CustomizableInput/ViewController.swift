@@ -96,7 +96,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
         // Initialize button gestures
         let panGestureButton = CustomPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         panGestureButton.bindedModule = moduleButtonBtn
-        panGestureButton.outputModule = UIButton(type: .system)
+        panGestureButton.outputModule = CustomButton(type: .system)
         moduleButtonBtn.addGestureRecognizer(panGestureButton)
         
         // Initialize picker gestures
@@ -132,7 +132,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
                         let convertedFrame = trackingView.convert(copiedImageView.frame, to: canvasView)
                         
                         copiedImageView.removeFromSuperview()
-                        outputModule.frame = convertedFrame
+                        outputModule.frame = CGRect(x: convertedFrame.minX, y: convertedFrame.minY, width: outputModule.frame.width, height: outputModule.frame.height)
                         canvasView.addSubview(outputModule)
                     } else {
                         copiedImageView?.removeFromSuperview()
