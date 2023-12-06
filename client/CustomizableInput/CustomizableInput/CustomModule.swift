@@ -182,7 +182,7 @@ class CustomToggle: UIView {
         thumbView.backgroundColor = UIColor(hex: "0DCBCC", alpha: 0.5)
         thumbView.layer.cornerRadius = frame.height / 2
         thumbView.layer.borderWidth = 1.0
-        thumbView.layer.borderColor = UIColor(hex: "0DCBCC", alpha: 1).cgColor
+        thumbView.layer.borderColor = UIColor.white.cgColor
         addSubview(thumbView)
 
         // Add a tap gesture recognizer to handle toggling
@@ -222,7 +222,10 @@ class CustomToggle: UIView {
         isOn.toggle()
         UIView.animate(withDuration: 0.2) {
             self.thumbView.center.x = self.isOn ? self.bounds.width - self.thumbView.bounds.width / 2 : self.thumbView.bounds.width / 2
-            self.backgroundColor = self.isOn ?  UIColor.white : UIColor(hex: "181717", alpha: 1)
+            self.backgroundColor = self.isOn ?  UIColor(hex: "0DCBCC", alpha: 0.5) : UIColor(hex: "181717", alpha: 1)
+            self.layer.borderColor = self.isOn ?
+            UIColor(hex: "0DCBCC", alpha: 0.5).cgColor :
+            UIColor(hex: "FFFFFF", alpha: 0.4).cgColor
         }
     }
 }
@@ -292,7 +295,12 @@ class CustomJoystick: UIView {
         layer.borderWidth = 1.0
         layer.borderColor = UIColor(hex: "FF9809", alpha: 1).cgColor
         backgroundColor = UIColor(hex: "FF9809", alpha: 0.5)
-
+        
+        createArrowView(at: CGPoint(x: frame.width / 1.5, y: frame.height / 4.5), rotation: 0) // Up arrow
+        createArrowView(at: CGPoint(x: frame.width / 1.5, y: frame.height + frame.height / 9), rotation: .pi) // Down arrow
+        createArrowView(at: CGPoint(x: frame.width / 4.5, y: frame.height / 1.5), rotation: -.pi / 2) // Left arrow
+        createArrowView(at: CGPoint(x: frame.width + frame.width / 9, y: frame.height / 1.5), rotation: .pi / 2) // Right arrow
+        
         // Create thumb view
         thumbView = UIView(frame: CGRect(x: frame.width / 2, y: frame.height / 2, width: frame.width / 3, height: frame.height / 3))
         thumbView.backgroundColor = UIColor(hex: "FF9809", alpha: 1)
@@ -300,11 +308,6 @@ class CustomJoystick: UIView {
         thumbView.layer.borderWidth = 1.0
         thumbView.layer.borderColor = UIColor.white.cgColor
         addSubview(thumbView)
-        
-        createArrowView(at: CGPoint(x: frame.width / 1.5, y: frame.height / 4.5), rotation: 0) // Up arrow
-        createArrowView(at: CGPoint(x: frame.width / 1.5, y: frame.height + frame.height / 9), rotation: .pi) // Down arrow
-        createArrowView(at: CGPoint(x: frame.width / 4.5, y: frame.height / 1.5), rotation: -.pi / 2) // Left arrow
-        createArrowView(at: CGPoint(x: frame.width + frame.width / 9, y: frame.height / 1.5), rotation: .pi / 2) // Right arrow
         
 
         // Add a pan gesture recognizer to handle dragging
