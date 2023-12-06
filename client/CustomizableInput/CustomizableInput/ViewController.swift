@@ -84,7 +84,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
         // Initialize toggle gestures
         let panGestureToggle = CustomPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         panGestureToggle.bindedModule = moduleToggleBtn
-        panGestureToggle.outputModule = UISwitch()
+        panGestureToggle.outputModule = CustomToggle()
         moduleToggleBtn.addGestureRecognizer(panGestureToggle)
         
         // Initialize joystick gestures
@@ -102,7 +102,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
         // Initialize picker gestures
         let panGesturePicker = CustomPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         panGesturePicker.bindedModule = modulePickerBtn
-        panGesturePicker.outputModule = UIColorWell()
+        panGesturePicker.outputModule = CustomColor()
         modulePickerBtn.addGestureRecognizer(panGesturePicker)
     }
     
