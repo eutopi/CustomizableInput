@@ -270,3 +270,131 @@ class CustomColor: UIColorWell {
         }
     }
 }
+
+class CustomJoystick: UIView {
+
+    private var thumbView: UIView!
+    private var touchPoint: CGPoint?
+    private var touchPointThumb: CGPoint?
+
+    override init(frame: CGRect) {
+        super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        setupJoystick()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupJoystick()
+    }
+
+    private func setupJoystick() {
+        layer.cornerRadius = frame.height / 2
+        layer.borderWidth = 1.0
+        layer.borderColor = UIColor(hex: "FF9809", alpha: 1).cgColor
+        backgroundColor = UIColor(hex: "FF9809", alpha: 0.5)
+
+        // Create thumb view
+        thumbView = UIView(frame: CGRect(x: frame.width / 2, y: frame.height / 2, width: frame.width / 3, height: frame.height / 3))
+        thumbView.backgroundColor = UIColor(hex: "FF9809", alpha: 1)
+        thumbView.layer.cornerRadius = frame.width / 6
+        thumbView.layer.borderWidth = 1.0
+        thumbView.layer.borderColor = UIColor.white.cgColor
+        addSubview(thumbView)
+        
+        createArrowView(at: CGPoint(x: frame.width / 1.5, y: frame.height / 4.5), rotation: 0) // Up arrow
+        createArrowView(at: CGPoint(x: frame.width / 1.5, y: frame.height + frame.height / 9), rotation: .pi) // Down arrow
+        createArrowView(at: CGPoint(x: frame.width / 4.5, y: frame.height / 1.5), rotation: -.pi / 2) // Left arrow
+        createArrowView(at: CGPoint(x: frame.width + frame.width / 9, y: frame.height / 1.5), rotation: .pi / 2) // Right arrow
+        
+
+        // Add a pan gesture recognizer to handle dragging
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+        addGestureRecognizer(panGestureRecognizer)
+        
+        let panGestureRecognizerThumb = UIPanGestureRecognizer(target: self, action: #selector(handlePanGestureThumb(_:)))
+            thumbView.addGestureRecognizer(panGestureRecognizerThumb)
+    }
+    
+    private func createArrowView(at center: CGPoint, rotation: CGFloat) {
+        let arrowView = UIView(frame: CGRect(x: 0, y: 0, width: frame.width / 3, height: frame.height / 3))
+        arrowView.backgroundColor = UIColor.clear
+        arrowView.center = center
+
+        let trianglePath = UIBezierPath()
+        let sideLength = frame.width / 6 // Adjust the side length as needed
+
+        // Move to the top vertex of the equilateral triangle
+        trianglePath.move(to: CGPoint(x: 0, y: -sideLength / (2 * sqrt(3))))
+
+        // Add lines to the bottom-left and bottom-right vertices
+        trianglePath.addLine(to: CGPoint(x: -sideLength / 2, y: sideLength / (2 * sqrt(3))))
+        trianglePath.addLine(to: CGPoint(x: sideLength / 2, y: sideLength / (2 * sqrt(3))))
+
+        // Close the path to form a triangle
+        trianglePath.close()
+
+        // Create a CAShapeLayer for the triangle
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = trianglePath.cgPath
+        shapeLayer.fillColor = UIColor(hex: "FF9809", alpha: 1).cgColor
+
+        // Apply rotation
+        shapeLayer.transform = CATransform3DMakeRotation(rotation, 0, 0, 1)
+
+        arrowView.layer.addSublayer(shapeLayer)
+        addSubview(arrowView)
+    }
+    
+    @objc private func handlePanGesture(_ sender: UIPanGestureRecognizer) {
+        guard let superview = self.superview else { return }
+        if sender.state == .began {
+            // Save the initial touch point
+            touchPoint = sender.location(in: superview)
+        } else if sender.state == .changed {
+            // Calculate the translation from the initial touch point
+            let translation = sender.translation(in: superview)
+
+            // Update the button's position
+            self.center = CGPoint(x: self.center.x + translation.x, y: self.center.y + translation.y)
+
+            // Reset the translation to avoid cumulative changes
+            sender.setTranslation(CGPoint.zero, in: superview)
+        } else if sender.state == .ended || sender.state == .cancelled {
+            // Clear the touch point when dragging ends
+            touchPoint = nil
+        }
+    }
+    
+    @objc private func handlePanGestureThumb(_ sender: UIPanGestureRecognizer) {
+        guard let superview = self.superview else { return }
+
+        if sender.state == .began {
+            // Save the initial touch point
+            touchPointThumb = sender.location(in: self)
+        } else if sender.state == .changed {
+            // Calculate the translation from the initial touch point
+            let translation = sender.translation(in: self)
+
+            // Calculate the new position of thumbView
+            let newThumbCenter = CGPoint(x: thumbView.center.x + translation.x, y: thumbView.center.y + translation.y)
+
+            // Ensure thumbView stays within the bounds of self
+            let thumbFrame = thumbView.frame
+            let minX = thumbFrame.width / 2
+            let maxX = self.bounds.width - thumbFrame.width / 2
+            let minY = thumbFrame.height / 2
+            let maxY = self.bounds.height - thumbFrame.height / 2
+
+            let clampedX = min(max(minX, newThumbCenter.x), maxX)
+            let clampedY = min(max(minY, newThumbCenter.y), maxY)
+
+            thumbView.center = CGPoint(x: clampedX, y: clampedY)
+
+            // Reset the translation to avoid cumulative changes
+            sender.setTranslation(CGPoint.zero, in: self)
+        } else if sender.state == .ended || sender.state == .cancelled {
+            // Clear the touch point when dragging ends
+            touchPointThumb = nil
+        }
+    }
+}

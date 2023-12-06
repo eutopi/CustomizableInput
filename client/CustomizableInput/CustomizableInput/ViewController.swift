@@ -90,7 +90,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
         // Initialize joystick gestures
         let panGestureJoystick = CustomPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         panGestureJoystick.bindedModule = moduleJoystickBtn
-        panGestureJoystick.outputModule = UISlider()
+        panGestureJoystick.outputModule = CustomJoystick()
         moduleJoystickBtn.addGestureRecognizer(panGestureJoystick)
         
         // Initialize button gestures
