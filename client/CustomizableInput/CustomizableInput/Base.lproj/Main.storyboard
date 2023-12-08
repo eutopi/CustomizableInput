@@ -39,6 +39,12 @@
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="naa-15-0lU">
                                 <rect key="frame" x="236" y="72" width="622" height="308"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="IconTrash" translatesAutoresizingMaskIntoConstraints="NO" id="cje-EZ-oBz">
+                                        <rect key="frame" x="572" y="260" width="32" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
                                 <color key="backgroundColor" red="0.094097383320000005" green="0.090198226270000001" blue="0.090196020900000007" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </view>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Custom Title" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qng-B3-q2a">
@@ -75,6 +81,7 @@
                         <outlet property="moduleSliderBtn" destination="KMN-n7-znE" id="TgK-ps-03z"/>
                         <outlet property="moduleToggleBtn" destination="ki2-1A-xq0" id="VEa-YS-Ato"/>
                         <outlet property="trackingView" destination="8bC-Xf-vdC" id="OoE-Kh-yAP"/>
+                        <outlet property="trashIcon" destination="cje-EZ-oBz" id="zRy-wm-P4X"/>
                         <outlet property="view" destination="8bC-Xf-vdC" id="Byi-Kk-v9d"/>
                     </connections>
                 </viewController>
@@ -90,6 +97,7 @@
         <image name="IconSave" width="31" height="34"/>
         <image name="IconSlider" width="48" height="52"/>
         <image name="IconToggle" width="48" height="52"/>
+        <image name="IconTrash" width="800" height="800"/>
         <image name="LeftArrow" width="8" height="15"/>
     </resources>
 </document>

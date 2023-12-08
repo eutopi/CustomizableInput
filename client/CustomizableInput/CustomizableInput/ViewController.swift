@@ -12,22 +12,22 @@ extension UIColor {
     convenience init(hex: String, alpha: CGFloat = 1.0) {
         var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
         hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
-
+        
         var rgb: UInt64 = 0
-
+        
         Scanner(string: hexSanitized).scanHexInt64(&rgb)
-
+        
         let red = CGFloat((rgb & 0xFF0000) >> 16) / 255.0
         let green = CGFloat((rgb & 0x00FF00) >> 8) / 255.0
         let blue = CGFloat(rgb & 0x0000FF) / 255.0
-
+        
         self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
 }
 
 class CustomPanGestureRecognizer: UIPanGestureRecognizer {
     var bindedModule: UIImageView?
-    var outputModule: UIView?
+    var moduleType: String?
 }
 
 class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate {
@@ -43,7 +43,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
     @IBOutlet weak var moduleJoystickBtn: UIImageView!
     @IBOutlet weak var moduleButtonBtn: UIImageView!
     @IBOutlet weak var modulePickerBtn: UIImageView!
-    
+    @IBOutlet weak var trashIcon: UIImageView!
     
     var copiedImageView: UIImageView?
     var slider: UISlider?
@@ -61,12 +61,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
     
     let motionManager = CMMotionManager()
     var mouseMode = "traditional"
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-//        initializeButtons()
-//        startAccelerometerUpdates()
+        //        initializeButtons()
+        //        startAccelerometerUpdates()
         initializeCanvas()
     }
     
@@ -74,35 +74,37 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
         canvasView.layer.cornerRadius = 15;
         canvasView.layer.masksToBounds = true;
         self.canvasTitleTextField.delegate = self
+        trashIcon.alpha = 0.7
+        trashIcon.tag = -1
         
         // Initialize slider gestures
         let panGestureSlider = CustomPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         panGestureSlider.bindedModule = moduleSliderBtn
-        panGestureSlider.outputModule = CustomSlider()
+        panGestureSlider.moduleType = "slider"
         moduleSliderBtn.addGestureRecognizer(panGestureSlider)
         
         // Initialize toggle gestures
         let panGestureToggle = CustomPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         panGestureToggle.bindedModule = moduleToggleBtn
-        panGestureToggle.outputModule = CustomToggle()
+        panGestureToggle.moduleType = "toggle"
         moduleToggleBtn.addGestureRecognizer(panGestureToggle)
         
         // Initialize joystick gestures
         let panGestureJoystick = CustomPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         panGestureJoystick.bindedModule = moduleJoystickBtn
-        panGestureJoystick.outputModule = CustomJoystick()
+        panGestureJoystick.moduleType = "joystick"
         moduleJoystickBtn.addGestureRecognizer(panGestureJoystick)
         
         // Initialize button gestures
         let panGestureButton = CustomPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         panGestureButton.bindedModule = moduleButtonBtn
-        panGestureButton.outputModule = CustomButton(type: .system)
+        panGestureButton.moduleType = "button"
         moduleButtonBtn.addGestureRecognizer(panGestureButton)
         
         // Initialize picker gestures
         let panGesturePicker = CustomPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         panGesturePicker.bindedModule = modulePickerBtn
-        panGesturePicker.outputModule = CustomColor()
+        panGesturePicker.moduleType = "color"
         modulePickerBtn.addGestureRecognizer(panGesturePicker)
     }
     
@@ -113,9 +115,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
     
     @objc func handlePan(_ gesture: CustomPanGestureRecognizer) {
         let translation = gesture.translation(in: trackingView)
-
+        
         if let bindedModule = gesture.bindedModule {
-            if let outputModule = gesture.outputModule {
+            if let moduleType = gesture.moduleType {
                 if gesture.state == .began {
                     // Create a copy of the original image view only once
                     copiedImageView = UIImageView(image: bindedModule.image)
@@ -132,8 +134,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
                         let convertedFrame = trackingView.convert(copiedImageView.frame, to: canvasView)
                         
                         copiedImageView.removeFromSuperview()
-                        outputModule.frame = CGRect(x: convertedFrame.minX, y: convertedFrame.minY, width: outputModule.frame.width, height: outputModule.frame.height)
-                        canvasView.addSubview(outputModule)
+                        if let newModule = createModule(moduleType: moduleType) {
+                            newModule.frame = CGRect(x: convertedFrame.minX, y: convertedFrame.minY, width: newModule.frame.width, height: newModule.frame.height)
+                            canvasView.addSubview(newModule)
+                        } else {
+                            print("Failed to create module for moduleType:", moduleType)
+                        }
                     } else {
                         copiedImageView?.removeFromSuperview()
                     }
@@ -142,6 +148,24 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
                 // Reset the translation to avoid accumulation
                 gesture.setTranslation(.zero, in: trackingView)
             }
+        }
+    }
+    
+    func createModule(moduleType: String) -> UIView? {
+        switch moduleType {
+        case "button":
+            return CustomButton()
+        case "slider":
+            return CustomSlider()
+        case "color":
+            return CustomColor()
+        case "toggle":
+            return CustomToggle()
+        case "joystick":
+            return CustomJoystick()
+        default:
+            // Handle unknown module types or return nil
+            return nil
         }
     }
     
@@ -180,7 +204,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
     func makeTapSound() {
         // Create a feedback generator
         let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
-
+        
         // Trigger the feedback
         feedbackGenerator.prepare()
         feedbackGenerator.impactOccurred()
@@ -207,86 +231,86 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
         print("right click up")
         sendMessage(message: "right up")
     }
-
+    
     @IBAction func handleScrollbarTouch(_ recognizer: UIPanGestureRecognizer) {
         if mouseMode != "traditional" { return }
         switch recognizer.state {
-            case .changed:
-                let translation = recognizer.translation(in: trackingView)
-                print("Finger moved by (\(translation.x), \(translation.y))")
-                sendMessage(message: "scroll: \(translation.y)")
-                recognizer.setTranslation(.zero, in: trackingView)
-            default:
-                break
+        case .changed:
+            let translation = recognizer.translation(in: trackingView)
+            print("Finger moved by (\(translation.x), \(translation.y))")
+            sendMessage(message: "scroll: \(translation.y)")
+            recognizer.setTranslation(.zero, in: trackingView)
+        default:
+            break
         }
     }
     
-//    @IBAction func handlePan(_ recognizer: UIPanGestureRecognizer) {
-//        if mouseMode != "trackpad" { return }
-//        let numberOfTouches = recognizer.numberOfTouches
-//        switch recognizer.state {
-//            case .changed:
-//                let translation = recognizer.translation(in: trackingView)
-//                print("Finger moved by (\(translation.x), \(translation.y))")
-//                if (numberOfTouches == 1) {
-//                    sendMessage(message: "move: \(translation.x), \(translation.y)")
-//                }
-//                else if (numberOfTouches == 2) {
-//                    sendMessage(message: "scroll: \(translation.y)")
-//                }
-//                recognizer.setTranslation(.zero, in: trackingView)
-//            default:
-//                break
-//        }
-//    }
+    //    @IBAction func handlePan(_ recognizer: UIPanGestureRecognizer) {
+    //        if mouseMode != "trackpad" { return }
+    //        let numberOfTouches = recognizer.numberOfTouches
+    //        switch recognizer.state {
+    //            case .changed:
+    //                let translation = recognizer.translation(in: trackingView)
+    //                print("Finger moved by (\(translation.x), \(translation.y))")
+    //                if (numberOfTouches == 1) {
+    //                    sendMessage(message: "move: \(translation.x), \(translation.y)")
+    //                }
+    //                else if (numberOfTouches == 2) {
+    //                    sendMessage(message: "scroll: \(translation.y)")
+    //                }
+    //                recognizer.setTranslation(.zero, in: trackingView)
+    //            default:
+    //                break
+    //        }
+    //    }
     
     @IBAction func handlePanLeftMouse(_ recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
-            case .changed:
-                let translation = recognizer.translation(in: trackingView)
-                print("Finger moved by (\(translation.x), \(translation.y))")
-                sendMessage(message: "move: \(translation.x), \(translation.y)")
-                recognizer.setTranslation(.zero, in: trackingView)
-            case .ended, .cancelled, .failed:
-                print("left click up")
-                sendMessage(message: "left up")
-            default:
-                break
+        case .changed:
+            let translation = recognizer.translation(in: trackingView)
+            print("Finger moved by (\(translation.x), \(translation.y))")
+            sendMessage(message: "move: \(translation.x), \(translation.y)")
+            recognizer.setTranslation(.zero, in: trackingView)
+        case .ended, .cancelled, .failed:
+            print("left click up")
+            sendMessage(message: "left up")
+        default:
+            break
         }
     }
     
     @IBAction func handlePanPhysicalLeftMouse(_ recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
-            case .ended, .cancelled, .failed:
-                print("left click up")
-                sendMessage(message: "left up")
-            default:
-                break
+        case .ended, .cancelled, .failed:
+            print("left click up")
+            sendMessage(message: "left up")
+        default:
+            break
         }
     }
     
     @IBAction func handlePanRightMouse(_ recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
-            case .changed:
-                let translation = recognizer.translation(in: trackingView)
-                print("Finger moved by (\(translation.x), \(translation.y))")
-                sendMessage(message: "move: \(translation.x), \(translation.y)")
-                recognizer.setTranslation(.zero, in: trackingView)
-            case .ended, .cancelled, .failed:
-                print("right click up")
-                sendMessage(message: "right up")
-            default:
-                break
+        case .changed:
+            let translation = recognizer.translation(in: trackingView)
+            print("Finger moved by (\(translation.x), \(translation.y))")
+            sendMessage(message: "move: \(translation.x), \(translation.y)")
+            recognizer.setTranslation(.zero, in: trackingView)
+        case .ended, .cancelled, .failed:
+            print("right click up")
+            sendMessage(message: "right up")
+        default:
+            break
         }
     }
     
     @IBAction func handlePanPhysicalRightMouse(_ recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
-            case .ended, .cancelled, .failed:
-                print("right click up")
-                sendMessage(message: "right up")
-            default:
-                break
+        case .ended, .cancelled, .failed:
+            print("right click up")
+            sendMessage(message: "right up")
+        default:
+            break
         }
     }
     
@@ -332,7 +356,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
                 
                 // Adjust the threshold value as needed
                 let threshold: Double = 0.05
-
+                
                 if abs(data.acceleration.x) > threshold || abs(data.acceleration.y) > threshold {
                     print("\(data.acceleration.x), \(data.acceleration.y)")
                     self.sendMessage(message: "move: \(data.acceleration.x * 100), \(-data.acceleration.y * 100)")
@@ -340,7 +364,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
             }
         }
     }
-
+    
     func stopAccelerometerUpdates() {
         if motionManager.isAccelerometerActive {
             motionManager.stopAccelerometerUpdates()
@@ -349,11 +373,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
     
     func sendMessage(message: String) {
         // mac at brown
-//        guard let url = URL(string: "http://10.39.14.93:5000/touch") else { return }
-//        // mac
+        //        guard let url = URL(string: "http://10.39.14.93:5000/touch") else { return }
+        //        // mac
         guard let url = URL(string: "http://192.168.86.106:5000/touch") else { return }
         // windows
-//        guard let url = URL(string: "http://192.168.86.111:5000/touch") else { return }
+        //        guard let url = URL(string: "http://192.168.86.111:5000/touch") else { return }
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -363,11 +387,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
             if let error = error {
                 print("Error: \(error)")
             }
-//            else if let data = data {
-//                print("Response: \(String(data: data, encoding: .utf8) ?? "")")
-//            }
+            //            else if let data = data {
+            //                print("Response: \(String(data: data, encoding: .utf8) ?? "")")
+            //            }
         }
-
+        
         task.resume()
     }
 }
