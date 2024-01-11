@@ -7,6 +7,26 @@
 
 import UIKit
 
+extension ViewController: UIContextMenuInteractionDelegate {
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+            // Create menu items
+            let menuItem1 = UIAction(title: "Option 1", image: UIImage(systemName: "circle")) { _ in
+                // Handle action for Option 1
+            }
+            
+            let menuItem2 = UIAction(title: "Option 2", image: UIImage(systemName: "square")) { _ in
+                // Handle action for Option 2
+            }
+
+            // Create a UIMenu with the menu items
+            let menu = UIMenu(title: "Options", children: [menuItem1, menuItem2])
+
+            return menu
+        }
+    }
+}
+
 class CustomButton: UIButton {
     
     private var touchPoint: CGPoint?
@@ -35,6 +55,30 @@ class CustomButton: UIButton {
         // Add a pan gesture recognizer to track dragging
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
         self.addGestureRecognizer(panGestureRecognizer)
+        
+        // Add long press gesture recognizer
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        self.addGestureRecognizer(tapGestureRecognizer)
+                
+        // Enable interaction for context menu
+        self.addInteraction(UIContextMenuInteraction(delegate: self))
+    }
+    
+    @objc func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
+        print("here")
+        let menuItem1 = UIAction(title: "Option 1", image: UIImage(systemName: "circle")) { _ in
+            // Handle action for Option 1
+        }
+        
+        let menuItem2 = UIAction(title: "Option 2", image: UIImage(systemName: "square")) { _ in
+            // Handle action for Option 2
+        }
+
+        // Create a UIMenu with the menu items
+        let menu = UIMenu(title: "Options", children: [menuItem1, menuItem2])
+        
+        self.menu = menu
+        self.showsMenuAsPrimaryAction = true
     }
     
     @objc private func handlePanGesture(_ sender: UIPanGestureRecognizer) {
