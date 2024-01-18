@@ -10,6 +10,7 @@ import UIKit
 class CustomButton: UIButton, MenuPresentable {
     
     private var baseControl: BaseControl!
+    private var isEditMode: Bool = true
     
     override init(frame: CGRect) {
         super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
@@ -47,6 +48,7 @@ class CustomButton: UIButton, MenuPresentable {
     class CustomSlider: UISlider, MenuPresentable {
         
         private var baseControl: BaseControl!
+        private var isEditMode: Bool = true
         private lazy var thumbView: UIView = {
             let thumb = UIView()
             thumb.backgroundColor = UIColor(hex: "436E9E", alpha: 1)//thumbTintColor
@@ -121,8 +123,13 @@ class CustomButton: UIButton, MenuPresentable {
         
         override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
                 let hitTestView = super.hitTest(point, with: event)
+            if (isEditMode) {
                 return hitTestView == self ? baseControl : hitTestView
             }
+            else {
+                return hitTestView
+            }
+        }
     }
     
     class CustomToggle: UIView, MenuPresentable {
