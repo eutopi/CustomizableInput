@@ -10,7 +10,7 @@ import UIKit
 class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var titleText: String?
-    var options: [String] = ["Option 1", "Option 2", "Option 3"] // Add your options here
+    var options: [String] = ["None", "Page Scroll Vertical (default)", "Page Scroll Horizontal (default)"]
     var selectedOption: String?
 
     init(title: String) {
@@ -27,7 +27,7 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
 
         // Customize the appearance of the menu view controller
         view.backgroundColor = UIColor(hex: "2E2D2D", alpha: 1)
-        preferredContentSize = CGSize(width: 400, height: 200)  // Increase the width for the black rectangle
+        preferredContentSize = CGSize(width: 400, height: 200)
 
         // Add title label
         let titleLabel = UILabel()
@@ -112,12 +112,19 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         return options.count
     }
 
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return options[row]
-    }
-
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedOption = options[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let label = UILabel()
+
+        label.text = options[row]
+        label.textAlignment = .center
+        label.textColor = UIColor.white
+        label.font = UIFont.systemFont(ofSize: 16)  // Set the font size to 16
+
+        return label
     }
     
     @objc func newFunctionTapped() {
