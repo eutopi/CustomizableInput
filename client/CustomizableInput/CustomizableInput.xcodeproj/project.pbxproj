@@ -18,6 +18,8 @@
 		0AE756942AD45AF500E7CA5F /* CustomizableInputUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE756932AD45AF500E7CA5F /* CustomizableInputUITestsLaunchTests.swift */; };
 		DF0668FD2B22DA1B0076DC71 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0668FC2B22DA1B0076DC71 /* Util.swift */; };
 		DF3676252B1E3AA0001BE7C3 /* CustomModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3676242B1E3AA0001BE7C3 /* CustomModule.swift */; };
+		DFA7E7302B58810A0000A045 /* ModuleMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA7E72F2B58810A0000A045 /* ModuleMenu.swift */; };
+		DFA7E7322B5882C80000A045 /* CustomModuleSharedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA7E7312B5882C80000A045 /* CustomModuleSharedControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		0AE756932AD45AF500E7CA5F /* CustomizableInputUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizableInputUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		DF0668FC2B22DA1B0076DC71 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		DF3676242B1E3AA0001BE7C3 /* CustomModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomModule.swift; sourceTree = "<group>"; };
+		DFA7E72F2B58810A0000A045 /* ModuleMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleMenu.swift; sourceTree = "<group>"; };
+		DFA7E7312B5882C80000A045 /* CustomModuleSharedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomModuleSharedControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,8 +114,10 @@
 				0AE756792AD45AF500E7CA5F /* Assets.xcassets */,
 				0AE7567B2AD45AF500E7CA5F /* LaunchScreen.storyboard */,
 				0AE7567E2AD45AF500E7CA5F /* Info.plist */,
+				DFA7E7312B5882C80000A045 /* CustomModuleSharedControl.swift */,
 				DF3676242B1E3AA0001BE7C3 /* CustomModule.swift */,
 				DF0668FC2B22DA1B0076DC71 /* Util.swift */,
+				DFA7E72F2B58810A0000A045 /* ModuleMenu.swift */,
 			);
 			path = CustomizableInput;
 			sourceTree = "<group>";
@@ -266,8 +272,10 @@
 			files = (
 				0AE756752AD45AF300E7CA5F /* ViewController.swift in Sources */,
 				0AE756712AD45AF300E7CA5F /* AppDelegate.swift in Sources */,
+				DFA7E7322B5882C80000A045 /* CustomModuleSharedControl.swift in Sources */,
 				DF0668FD2B22DA1B0076DC71 /* Util.swift in Sources */,
 				DF3676252B1E3AA0001BE7C3 /* CustomModule.swift in Sources */,
+				DFA7E7302B58810A0000A045 /* ModuleMenu.swift in Sources */,
 				0AE756732AD45AF300E7CA5F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
