@@ -14,9 +14,11 @@ protocol MenuPresentable {
 class BaseControl: UIControl, MenuPresentable {
 
     private var touchPoint: CGPoint?
+    private var moduleTitle = "Undefined Module"
 
-    override init(frame: CGRect) {
+    init(frame: CGRect, title: String) {
         super.init(frame: frame)
+        self.moduleTitle = title
         setupControl()
     }
 
@@ -58,7 +60,7 @@ class BaseControl: UIControl, MenuPresentable {
 
     func showMenu(from viewController: UIViewController, at touchPoint: CGPoint) {
         // Create a custom view controller for the menu
-        let menuViewController = MenuViewController()
+        let menuViewController = MenuViewController(title: moduleTitle)
 
         // Set the presentation style to popover
         menuViewController.modalPresentationStyle = .popover

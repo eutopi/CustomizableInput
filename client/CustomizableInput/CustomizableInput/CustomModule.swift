@@ -31,7 +31,7 @@ class CustomButton: UIButton, MenuPresentable {
         self.layer.cornerRadius = 5.0
         self.layer.masksToBounds = true
         
-        baseControl = BaseControl(frame: self.frame)
+        baseControl = BaseControl(frame: self.frame, title: "Button")
         self.addSubview(baseControl)
     }
     
@@ -113,7 +113,7 @@ class CustomButton: UIButton, MenuPresentable {
             setMinimumTrackImage(createTrackImage(color: UIColor(hex: "59AAFF", alpha: 0.5), borderColor: UIColor(hex: "59AAFF", alpha: 1)), for: .normal)
             setMaximumTrackImage(createTrackImage(color: UIColor(hex: "181717", alpha: 1), borderColor: UIColor(hex: "FFFFFF", alpha: 0.4)), for: .normal)
             
-            baseControl = BaseControl(frame: self.frame)
+            baseControl = BaseControl(frame: self.frame, title: "Scroll")
             self.addSubview(baseControl)
         }
         
@@ -163,7 +163,7 @@ class CustomButton: UIButton, MenuPresentable {
             thumbView.layer.borderColor = UIColor.white.cgColor
             addSubview(thumbView)
             
-            baseControl = BaseControl(frame: self.frame)
+            baseControl = BaseControl(frame: self.frame, title: "Toggle")
             self.addSubview(baseControl)
         }
         
@@ -203,7 +203,7 @@ class CustomButton: UIButton, MenuPresentable {
         }
         
         private func setupButton() {
-            baseControl = BaseControl(frame: self.frame)
+            baseControl = BaseControl(frame: self.frame, title: "Color")
             self.addSubview(baseControl)
         }
         
@@ -256,7 +256,7 @@ class CustomButton: UIButton, MenuPresentable {
             let panGestureRecognizerThumb = UIPanGestureRecognizer(target: self, action: #selector(handlePanGestureThumb(_:)))
             thumbView.addGestureRecognizer(panGestureRecognizerThumb)
             
-            baseControl = BaseControl(frame: self.frame)
+            baseControl = BaseControl(frame: self.frame, title: "Joystick")
             self.addSubview(baseControl)
         }
         
