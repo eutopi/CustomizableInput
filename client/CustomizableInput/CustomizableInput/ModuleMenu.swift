@@ -17,6 +17,9 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     var newFunctionCurrentlyRecording: Bool = false
     var newFunctionButton: UIButton = UIButton()
     var removeFunctionButton: UIButton = UIButton()
+    var recordStartButton: UIButton = UIButton()
+    var recordStopButton: UIButton = UIButton()
+    var recordSaveButton: UIButton = UIButton()
     
     var pickerView: UIPickerView = UIPickerView()
     var blackRectangle: UIView = UIView()
@@ -57,33 +60,13 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         view.addSubview(pickerView)
 
         // Create UIButton for new function
-        newFunctionButton = UIButton(type: .system)
-        newFunctionButton.translatesAutoresizingMaskIntoConstraints = false
+        newFunctionButton = createImageButton(imageColor: UIColor(hex: "C0C0C0", alpha: 1), textColor: UIColor(hex: "C0C0C0", alpha: 1), image: UIImage(systemName: "plus.circle.fill")!, fontSize: 16, buttonText: " New Function ")
         newFunctionButton.addTarget(self, action: #selector(newFunctionTapped), for: .touchUpInside)
-        // Create attributed text with white-colored image
-        let imageAttachment = NSTextAttachment()
-        imageAttachment.image = UIImage(systemName: "plus.circle.fill")?.withTintColor(UIColor(hex: "C0C0C0", alpha: 1), renderingMode: .alwaysOriginal)
-        let imageString = NSAttributedString(attachment: imageAttachment)
-        let text = NSMutableAttributedString(string: " New Function", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)])
-        text.insert(imageString, at: 0)
-        newFunctionButton.setAttributedTitle(text, for: .normal)
-        newFunctionButton.tintColor = UIColor(hex: "C0C0C0", alpha: 1)
-        newFunctionButton.setAttributedTitle(text, for: .normal)
         view.addSubview(newFunctionButton)
         
         // Create UIButton for remove function
-        removeFunctionButton = UIButton(type: .system)
-        removeFunctionButton.translatesAutoresizingMaskIntoConstraints = false
+        removeFunctionButton = createImageButton(imageColor: UIColor(hex: "C0C0C0", alpha: 1), textColor: UIColor(hex: "C0C0C0", alpha: 1), image: UIImage(systemName: "minus.circle.fill")!, fontSize: 16, buttonText: "")
         removeFunctionButton.addTarget(self, action: #selector(removeFunctionTapped), for: .touchUpInside)
-        // Create attributed text with white-colored image
-        let imageAttachment2 = NSTextAttachment()
-        imageAttachment2.image = UIImage(systemName: "minus.circle.fill")?.withTintColor(UIColor(hex: "C0C0C0", alpha: 1), renderingMode: .alwaysOriginal)
-        let imageString2 = NSAttributedString(attachment: imageAttachment2)
-        let text2 = NSMutableAttributedString(string: "", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)])
-        text2.insert(imageString2, at: 0)
-        removeFunctionButton.setAttributedTitle(text2, for: .normal)
-        removeFunctionButton.tintColor = UIColor(hex: "C0C0C0", alpha: 1)
-        removeFunctionButton.setAttributedTitle(text2, for: .normal)
         view.addSubview(removeFunctionButton)
         removeFunctionButton.isHidden = true
         newFunctionName.borderStyle = .line
@@ -99,8 +82,25 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         newFunctionName.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(newFunctionName)
         newFunctionName.textColor = UIColor(hex: "C0C0C0", alpha: 0.8)
+        newFunctionName.text = "Unnamed"
         newFunctionName.isHidden = true
         newFunctionName.delegate = self
+        
+        recordStartButton = createImageButton(imageColor: .red, textColor: UIColor(hex: "C0C0C0", alpha: 1), image: UIImage(systemName: "record.circle")!, fontSize: 16, buttonText: " Record action ")
+        recordStartButton.addTarget(self, action: #selector(recordStartButtonTapped), for: .touchUpInside)
+        view.addSubview(recordStartButton)
+        recordStartButton.isHidden = true
+        
+        recordStopButton = createImageButton(imageColor: .red, textColor: UIColor(hex: "C0C0C0", alpha: 1), image: UIImage(systemName: "stop.circle.fill")!, fontSize: 16, buttonText: " Stop recording ")
+        recordStopButton.addTarget(self, action: #selector(recordStopButtonTapped), for: .touchUpInside)
+        view.addSubview(recordStopButton)
+        recordStopButton.isHidden = true
+        
+        recordSaveButton = createImageButton(imageColor: UIColor(hex: "C0C0C0", alpha: 1), textColor: UIColor(hex: "C0C0C0", alpha: 1), image: UIImage(systemName: "square.and.arrow.up.fill")!, fontSize: 16, buttonText: "")
+        recordSaveButton.addTarget(self, action: #selector(recordSaveButtonTapped), for: .touchUpInside)
+        view.addSubview(recordSaveButton)
+        recordSaveButton.isHidden = true
+        recordSaveButton.isEnabled = false
         
         // Add a button to handle selection
         let selectButton = UIButton(type: .system)
@@ -112,7 +112,6 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         selectButton.layer.cornerRadius = 5.0
         selectButton.addTarget(self, action: #selector(handleSelection), for: .touchUpInside)
         selectButton.translatesAutoresizingMaskIntoConstraints = false
-        
         view.addSubview(selectButton)
 
         // Black rectangle view
@@ -142,6 +141,15 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             newFunctionName.topAnchor.constraint(equalTo: removeFunctionButton.topAnchor),
             newFunctionName.leadingAnchor.constraint(equalTo: removeFunctionButton.trailingAnchor, constant: 0),
             newFunctionName.trailingAnchor.constraint(equalTo: blackRectangle.leadingAnchor, constant: -20),
+            
+            recordStartButton.topAnchor.constraint(equalTo: removeFunctionButton.bottomAnchor, constant: 5),
+            recordStartButton.leadingAnchor.constraint(equalTo: newFunctionName.leadingAnchor),
+            
+            recordStopButton.topAnchor.constraint(equalTo: removeFunctionButton.bottomAnchor, constant: 5),
+            recordStopButton.leadingAnchor.constraint(equalTo: newFunctionName.leadingAnchor),
+
+            recordSaveButton.topAnchor.constraint(equalTo: removeFunctionButton.bottomAnchor, constant: 5),
+            recordSaveButton.leadingAnchor.constraint(equalTo: newFunctionName.trailingAnchor, constant: -30),
 
             selectButton.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
             selectButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
@@ -186,12 +194,40 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         newFunctionButton.isHidden = true
         removeFunctionButton.isHidden = false
         newFunctionName.isHidden = false
+        recordStartButton.isHidden = false
+        recordStopButton.isHidden = true
+        recordSaveButton.isHidden = false
+        recordSaveButton.isEnabled = false
+        recordSaveButton.alpha = 0.2
     }
     
     @objc func removeFunctionTapped() {
         newFunctionButton.isHidden = false
         removeFunctionButton.isHidden = true
         newFunctionName.isHidden = true
+        recordStartButton.isHidden = true
+        recordStopButton.isHidden = true
+        recordSaveButton.isHidden = true
+    }
+    
+    @objc func recordStartButtonTapped() {
+        recordStartButton.isHidden = true
+        recordStopButton.isHidden = false
+        recordSaveButton.isEnabled = false
+        recordSaveButton.alpha = 0.2
+    }
+    
+    @objc func recordStopButtonTapped() {
+        recordStartButton.isHidden = false
+        recordStopButton.isHidden = true
+        recordSaveButton.isEnabled = true
+        recordSaveButton.alpha = 1
+    }
+    
+    @objc func recordSaveButtonTapped() {
+        options.append(newFunctionName.text!)
+        pickerView.reloadAllComponents()
+        removeFunctionTapped()
     }
 
     @objc func handleSelection() {
