@@ -7,11 +7,18 @@
 
 import UIKit
 
-class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     var titleText: String = "None"
     var options: [String] = []
     var selectedOption: String?
+    
+    var newFunctionName: UITextField = UITextField()
+    var newFunctionCurrentlyRecording: Bool = false
+    var newFunctionButton: UIButton = UIButton()
+    var removeFunctionButton: UIButton = UIButton()
+    
+    var pickerView: UIPickerView = UIPickerView()
     var blackRectangle: UIView = UIView()
     var testModule: UIView = UIView()
 
@@ -43,18 +50,16 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         view.addSubview(titleLabel)
 
         // Add UIPickerView for selectable options
-        let pickerView = UIPickerView()
         pickerView.delegate = self
         pickerView.dataSource = self
         pickerView.tintColor = UIColor.white
         pickerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(pickerView)
 
-        // Create UIButton
-        let newFunctionButton = UIButton(type: .system)
+        // Create UIButton for new function
+        newFunctionButton = UIButton(type: .system)
         newFunctionButton.translatesAutoresizingMaskIntoConstraints = false
         newFunctionButton.addTarget(self, action: #selector(newFunctionTapped), for: .touchUpInside)
-
         // Create attributed text with white-colored image
         let imageAttachment = NSTextAttachment()
         imageAttachment.image = UIImage(systemName: "plus.circle.fill")?.withTintColor(UIColor(hex: "C0C0C0", alpha: 1), renderingMode: .alwaysOriginal)
@@ -65,7 +70,38 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         newFunctionButton.tintColor = UIColor(hex: "C0C0C0", alpha: 1)
         newFunctionButton.setAttributedTitle(text, for: .normal)
         view.addSubview(newFunctionButton)
-
+        
+        // Create UIButton for remove function
+        removeFunctionButton = UIButton(type: .system)
+        removeFunctionButton.translatesAutoresizingMaskIntoConstraints = false
+        removeFunctionButton.addTarget(self, action: #selector(removeFunctionTapped), for: .touchUpInside)
+        // Create attributed text with white-colored image
+        let imageAttachment2 = NSTextAttachment()
+        imageAttachment2.image = UIImage(systemName: "minus.circle.fill")?.withTintColor(UIColor(hex: "C0C0C0", alpha: 1), renderingMode: .alwaysOriginal)
+        let imageString2 = NSAttributedString(attachment: imageAttachment2)
+        let text2 = NSMutableAttributedString(string: "", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)])
+        text2.insert(imageString2, at: 0)
+        removeFunctionButton.setAttributedTitle(text2, for: .normal)
+        removeFunctionButton.tintColor = UIColor(hex: "C0C0C0", alpha: 1)
+        removeFunctionButton.setAttributedTitle(text2, for: .normal)
+        view.addSubview(removeFunctionButton)
+        removeFunctionButton.isHidden = true
+        newFunctionName.borderStyle = .line
+        newFunctionName.layer.borderWidth = 1
+        newFunctionName.layer.borderColor = UIColor(hex: "C0C0C0", alpha: 1).cgColor
+        newFunctionName.attributedPlaceholder = NSAttributedString(
+            string: "Enter new function name here...",
+            attributes: [
+                NSAttributedString.Key.foregroundColor: UIColor(hex: "C0C0C0", alpha: 0.8),
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)
+            ]
+        )
+        newFunctionName.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(newFunctionName)
+        newFunctionName.textColor = UIColor(hex: "C0C0C0", alpha: 0.8)
+        newFunctionName.isHidden = true
+        newFunctionName.delegate = self
+        
         // Add a button to handle selection
         let selectButton = UIButton(type: .system)
         selectButton.setTitle(" Confirm ", for: .normal)
@@ -99,6 +135,13 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             newFunctionButton.topAnchor.constraint(equalTo: pickerView.bottomAnchor, constant: 10),
             newFunctionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             newFunctionButton.trailingAnchor.constraint(equalTo: blackRectangle.leadingAnchor, constant: -20),  // Align with the left edge of the black rectangle
+            
+            removeFunctionButton.topAnchor.constraint(equalTo: pickerView.bottomAnchor, constant: 10),
+            removeFunctionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+
+            newFunctionName.topAnchor.constraint(equalTo: removeFunctionButton.topAnchor),
+            newFunctionName.leadingAnchor.constraint(equalTo: removeFunctionButton.trailingAnchor, constant: 0),
+            newFunctionName.trailingAnchor.constraint(equalTo: blackRectangle.leadingAnchor, constant: -20),
 
             selectButton.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
             selectButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
@@ -113,7 +156,6 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        print(blackRectangle.center)
         testModule.center = blackRectangle.center
     }
 
@@ -141,7 +183,15 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     }
     
     @objc func newFunctionTapped() {
-        print("new function")
+        newFunctionButton.isHidden = true
+        removeFunctionButton.isHidden = false
+        newFunctionName.isHidden = false
+    }
+    
+    @objc func removeFunctionTapped() {
+        newFunctionButton.isHidden = false
+        removeFunctionButton.isHidden = true
+        newFunctionName.isHidden = true
     }
 
     @objc func handleSelection() {
@@ -151,5 +201,10 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         } else {
             print("No option selected")
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
