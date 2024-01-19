@@ -17,6 +17,12 @@ class CustomButton: UIButton, MenuPresentable {
         setupButton()
     }
     
+    init(frame: CGRect, isEditMode: Bool = true) {
+        self.isEditMode = isEditMode
+        super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+        setupButton()
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupButton()
@@ -31,8 +37,10 @@ class CustomButton: UIButton, MenuPresentable {
         self.layer.cornerRadius = 5.0
         self.layer.masksToBounds = true
         
-        baseControl = BaseControl(frame: self.frame, title: "Button")
-        self.addSubview(baseControl)
+        if (isEditMode) {
+            baseControl = BaseControl(frame: self.frame, title: "Button")
+            self.addSubview(baseControl)
+        }
     }
     
     func showMenu(from viewController: UIViewController, at touchPoint: CGPoint) {
@@ -41,14 +49,13 @@ class CustomButton: UIButton, MenuPresentable {
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
             let hitTestView = super.hitTest(point, with: event)
-            return hitTestView == self ? baseControl : hitTestView
+            return hitTestView == self && isEditMode ? baseControl : hitTestView
         }
 }
     
     class CustomSlider: UISlider, MenuPresentable {
         
         private var baseControl: BaseControl!
-        private var isEditMode: Bool = true
         private lazy var thumbView: UIView = {
             let thumb = UIView()
             thumb.backgroundColor = UIColor(hex: "436E9E", alpha: 1)//thumbTintColor
@@ -56,8 +63,15 @@ class CustomButton: UIButton, MenuPresentable {
             thumb.layer.borderColor = UIColor.white.cgColor
             return thumb
         }()
+        private var isEditMode: Bool = true
         
         override init(frame: CGRect) {
+            super.init(frame: CGRect(x: 0, y: 0, width: 200, height: 60))
+            setupButton()
+        }
+        
+        init(frame: CGRect, isEditMode: Bool = true) {
+            self.isEditMode = isEditMode
             super.init(frame: CGRect(x: 0, y: 0, width: 200, height: 60))
             setupButton()
         }
@@ -113,8 +127,10 @@ class CustomButton: UIButton, MenuPresentable {
             setMinimumTrackImage(createTrackImage(color: UIColor(hex: "59AAFF", alpha: 0.5), borderColor: UIColor(hex: "59AAFF", alpha: 1)), for: .normal)
             setMaximumTrackImage(createTrackImage(color: UIColor(hex: "181717", alpha: 1), borderColor: UIColor(hex: "FFFFFF", alpha: 0.4)), for: .normal)
             
-            baseControl = BaseControl(frame: self.frame, title: "Scroll")
-            self.addSubview(baseControl)
+            if (isEditMode) {
+                baseControl = BaseControl(frame: self.frame, title: "Slider")
+                self.addSubview(baseControl)
+            }
         }
         
         func showMenu(from viewController: UIViewController, at touchPoint: CGPoint) {
@@ -124,7 +140,7 @@ class CustomButton: UIButton, MenuPresentable {
         override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
                 let hitTestView = super.hitTest(point, with: event)
             if (isEditMode) {
-                return hitTestView == self ? baseControl : hitTestView
+                return hitTestView == self && isEditMode ? baseControl : hitTestView
             }
             else {
                 return hitTestView
@@ -137,8 +153,15 @@ class CustomButton: UIButton, MenuPresentable {
         private var baseControl: BaseControl!
         private var thumbView: UIView!
         private var isOn = false
+        private var isEditMode: Bool = true
         
         override init(frame: CGRect) {
+            super.init(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
+            setupToggle()
+        }
+        
+        init(frame: CGRect, isEditMode: Bool = true) {
+            self.isEditMode = isEditMode
             super.init(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
             setupToggle()
         }
@@ -163,8 +186,14 @@ class CustomButton: UIButton, MenuPresentable {
             thumbView.layer.borderColor = UIColor.white.cgColor
             addSubview(thumbView)
             
-            baseControl = BaseControl(frame: self.frame, title: "Toggle")
-            self.addSubview(baseControl)
+            if (isEditMode) {
+                baseControl = BaseControl(frame: self.frame, title: "Toggle")
+                self.addSubview(baseControl)
+            }
+            else {
+                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggle))
+                self.addGestureRecognizer(tapGestureRecognizer)
+            }
         }
         
         func showMenu(from viewController: UIViewController, at touchPoint: CGPoint) {
@@ -173,10 +202,10 @@ class CustomButton: UIButton, MenuPresentable {
         
         override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
                 let hitTestView = super.hitTest(point, with: event)
-                return hitTestView == self ? baseControl : hitTestView
+                return hitTestView == self && isEditMode ? baseControl : hitTestView
         }
         
-        private func toggle() {
+        @objc private func toggle() {
             isOn.toggle()
             UIView.animate(withDuration: 0.2) {
                 self.thumbView.center.x = self.isOn ? self.bounds.width - self.thumbView.bounds.width / 2 : self.thumbView.bounds.width / 2
@@ -191,20 +220,29 @@ class CustomButton: UIButton, MenuPresentable {
     class CustomColor: UIColorWell, MenuPresentable {
         
         private var baseControl: BaseControl!
+        private var isEditMode: Bool = true
         
         override init(frame: CGRect) {
             super.init(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-            setupButton()
+            setupColor()
+        }
+        
+        init(frame: CGRect, isEditMode: Bool = true) {
+            self.isEditMode = isEditMode
+            super.init(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            setupColor()
         }
         
         required init?(coder aDecoder: NSCoder) {
             super.init(coder: aDecoder)
-            setupButton()
+            setupColor()
         }
         
-        private func setupButton() {
-            baseControl = BaseControl(frame: self.frame, title: "Color")
-            self.addSubview(baseControl)
+        private func setupColor() {
+            if (isEditMode) {
+                baseControl = BaseControl(frame: self.frame, title: "Color")
+                self.addSubview(baseControl)
+            }
         }
         
         func showMenu(from viewController: UIViewController, at touchPoint: CGPoint) {
@@ -213,7 +251,7 @@ class CustomButton: UIButton, MenuPresentable {
         
         override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
                 let hitTestView = super.hitTest(point, with: event)
-                return hitTestView == self ? baseControl : hitTestView
+                return hitTestView == self && isEditMode ? baseControl : hitTestView
         }
     }
     
@@ -222,8 +260,15 @@ class CustomButton: UIButton, MenuPresentable {
         private var thumbView: UIView!
         private var touchPointThumb: CGPoint?
         private var baseControl: BaseControl!
+        private var isEditMode: Bool = true
         
         override init(frame: CGRect) {
+            super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+            setupJoystick()
+        }
+        
+        init(frame: CGRect, isEditMode: Bool = true) {
+            self.isEditMode = isEditMode
             super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
             setupJoystick()
         }
@@ -256,8 +301,10 @@ class CustomButton: UIButton, MenuPresentable {
             let panGestureRecognizerThumb = UIPanGestureRecognizer(target: self, action: #selector(handlePanGestureThumb(_:)))
             thumbView.addGestureRecognizer(panGestureRecognizerThumb)
             
-            baseControl = BaseControl(frame: self.frame, title: "Joystick")
-            self.addSubview(baseControl)
+            if (isEditMode) {
+                baseControl = BaseControl(frame: self.frame, title: "Joystick")
+                self.addSubview(baseControl)
+            }
         }
         
         func showMenu(from viewController: UIViewController, at touchPoint: CGPoint) {
@@ -266,7 +313,7 @@ class CustomButton: UIButton, MenuPresentable {
         
         override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
                 let hitTestView = super.hitTest(point, with: event)
-                return hitTestView == self ? baseControl : hitTestView
+                return hitTestView == self && isEditMode ? baseControl : hitTestView
         }
         
         private func createArrowView(at center: CGPoint, rotation: CGFloat) {

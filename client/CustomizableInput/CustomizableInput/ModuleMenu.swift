@@ -9,13 +9,16 @@ import UIKit
 
 class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    var titleText: String?
-    var options: [String] = ["None", "Page Scroll Vertical (default)", "Page Scroll Horizontal (default)"]
+    var titleText: String = "None"
+    var options: [String] = []
     var selectedOption: String?
+    var blackRectangle: UIView = UIView()
+    var testModule: UIView = UIView()
 
     init(title: String) {
         super.init(nibName: nil, bundle: nil)
         self.titleText = title
+        self.options = ModuleConstants.options[title]!
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -31,7 +34,7 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
 
         // Add title label
         let titleLabel = UILabel()
-        let attributedText = NSMutableAttributedString(string: "Edit / " + (titleText?.uppercased() ?? ""))
+        let attributedText = NSMutableAttributedString(string: "Edit / " + (titleText.uppercased()))
         let boldFontAttribute: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize)]
         attributedText.addAttributes(boldFontAttribute, range: NSRange(location: 0, length: 5)) // Assuming "Edit" is 5 characters
         titleLabel.attributedText = attributedText
@@ -73,13 +76,17 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         selectButton.layer.cornerRadius = 5.0
         selectButton.addTarget(self, action: #selector(handleSelection), for: .touchUpInside)
         selectButton.translatesAutoresizingMaskIntoConstraints = false
+        
         view.addSubview(selectButton)
 
         // Black rectangle view
-        let blackRectangle = UIView()
+        blackRectangle = UIView()
         blackRectangle.backgroundColor = UIColor(hex: "181717", alpha: 1)
         blackRectangle.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(blackRectangle)
+
+        testModule = ModuleConstants.module[titleText]!
+        view.addSubview(testModule)
 
         // Set up constraints
         NSLayoutConstraint.activate([
@@ -102,6 +109,12 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             blackRectangle.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             blackRectangle.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        print(blackRectangle.center)
+        testModule.center = blackRectangle.center
     }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

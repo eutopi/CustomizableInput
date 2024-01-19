@@ -20,6 +20,7 @@
 		DF3676252B1E3AA0001BE7C3 /* CustomModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3676242B1E3AA0001BE7C3 /* CustomModule.swift */; };
 		DFA7E7302B58810A0000A045 /* ModuleMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA7E72F2B58810A0000A045 /* ModuleMenu.swift */; };
 		DFA7E7322B5882C80000A045 /* CustomModuleSharedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA7E7312B5882C80000A045 /* CustomModuleSharedControl.swift */; };
+		DFA7E7342B5A03C40000A045 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA7E7332B5A03C40000A045 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		DF3676242B1E3AA0001BE7C3 /* CustomModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomModule.swift; sourceTree = "<group>"; };
 		DFA7E72F2B58810A0000A045 /* ModuleMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleMenu.swift; sourceTree = "<group>"; };
 		DFA7E7312B5882C80000A045 /* CustomModuleSharedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomModuleSharedControl.swift; sourceTree = "<group>"; };
+		DFA7E7332B5A03C40000A045 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 				DF3676242B1E3AA0001BE7C3 /* CustomModule.swift */,
 				DF0668FC2B22DA1B0076DC71 /* Util.swift */,
 				DFA7E72F2B58810A0000A045 /* ModuleMenu.swift */,
+				DFA7E7332B5A03C40000A045 /* Constants.swift */,
 			);
 			path = CustomizableInput;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				DF3676252B1E3AA0001BE7C3 /* CustomModule.swift in Sources */,
 				DFA7E7302B58810A0000A045 /* ModuleMenu.swift in Sources */,
 				0AE756732AD45AF300E7CA5F /* SceneDelegate.swift in Sources */,
+				DFA7E7342B5A03C40000A045 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
