@@ -23,7 +23,7 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     var pickerView: UIPickerView = UIPickerView()
     var blackRectangle: UIView = UIView()
-    var testModule: UIView = UIView()
+    var testModule: CustomModule = CustomButton()
 
     init(title: String) {
         super.init(nibName: nil, bundle: nil)
@@ -120,7 +120,7 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         blackRectangle.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(blackRectangle)
 
-        testModule = ModuleConstants.module[titleText]!
+        testModule = ModuleConstants.module[titleText]! as! any CustomModule
         view.addSubview(testModule)
 
         // Set up constraints
@@ -176,6 +176,7 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        testModule.selectedFunction = options[row]
         selectedOption = options[row]
     }
     

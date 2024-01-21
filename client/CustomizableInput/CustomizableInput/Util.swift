@@ -31,3 +31,20 @@ public func createImageButton(imageColor: UIColor, textColor: UIColor, image: UI
     
     return imageButton
 }
+
+public func sendMessage(path: String, message: String) {
+    // replace the IP address below as necessary
+    guard let url = URL(string: "http://192.168.86.29:5000/\(path)") else { return }
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.httpBody = message.data(using: .utf8)
+    
+    let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        if let error = error {
+            print("Error: \(error)")
+        }
+    }
+    
+    task.resume()
+}

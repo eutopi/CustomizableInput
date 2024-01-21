@@ -245,25 +245,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
         }
     }
     
-    //    @IBAction func handlePan(_ recognizer: UIPanGestureRecognizer) {
-    //        if mouseMode != "trackpad" { return }
-    //        let numberOfTouches = recognizer.numberOfTouches
-    //        switch recognizer.state {
-    //            case .changed:
-    //                let translation = recognizer.translation(in: trackingView)
-    //                print("Finger moved by (\(translation.x), \(translation.y))")
-    //                if (numberOfTouches == 1) {
-    //                    sendMessage(message: "move: \(translation.x), \(translation.y)")
-    //                }
-    //                else if (numberOfTouches == 2) {
-    //                    sendMessage(message: "scroll: \(translation.y)")
-    //                }
-    //                recognizer.setTranslation(.zero, in: trackingView)
-    //            default:
-    //                break
-    //        }
-    //    }
-    
     @IBAction func handlePanLeftMouse(_ recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .changed:

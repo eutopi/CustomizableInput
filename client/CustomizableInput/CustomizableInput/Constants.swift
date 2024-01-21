@@ -10,7 +10,7 @@ import UIKit
 struct ModuleConstants {
     static let options: [String: [String]] = [
         "Button": ["None", "Page Scroll Vertical (default)", "Page Scroll Horizontal (default)"],
-        "Slider": ["None", "Page Scroll Vertical (default)", "Page Scroll Horizontal (default)"],
+        "Slider": ["None", "Volume (default)", "Page Scroll Vertical (default)", "Page Scroll Horizontal (default)"],
         "Color": ["None", "Page Scroll Vertical (default)", "Page Scroll Horizontal (default)"],
         "Toggle": ["None", "Page Scroll Vertical (default)", "Page Scroll Horizontal (default)"],
         "Joystick": ["None", "Page Scroll Vertical (default)", "Page Scroll Horizontal (default)"]
@@ -22,5 +22,5 @@ struct ModuleConstants {
         "Color": CustomColor(frame: .zero, isEditMode: false),
         "Toggle": CustomToggle(frame: .zero, isEditMode: false),
         "Joystick": CustomJoystick(frame: .zero, isEditMode: false)
-    ] as [String : UIView]
+    ]
 }

@@ -7,10 +7,15 @@
 
 import UIKit
 
-class CustomButton: UIButton, MenuPresentable {
+protocol CustomModule: UIView{
+    var selectedFunction: String { get set }
+}
+
+class CustomButton: UIButton, CustomModule {
     
     private var baseControl: BaseControl!
     private var isEditMode: Bool = true
+    internal var selectedFunction: String = "None"
     
     override init(frame: CGRect) {
         super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
@@ -43,17 +48,13 @@ class CustomButton: UIButton, MenuPresentable {
         }
     }
     
-    func showMenu(from viewController: UIViewController, at touchPoint: CGPoint) {
-            // CustomButton-specific menu presentation code goes here
-        }
-    
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
             let hitTestView = super.hitTest(point, with: event)
             return hitTestView == self && isEditMode ? baseControl : hitTestView
         }
 }
     
-    class CustomSlider: UISlider, MenuPresentable {
+    class CustomSlider: UISlider, CustomModule {
         
         private var baseControl: BaseControl!
         private lazy var thumbView: UIView = {
@@ -64,6 +65,7 @@ class CustomButton: UIButton, MenuPresentable {
             return thumb
         }()
         private var isEditMode: Bool = true
+        internal var selectedFunction: String = "None"
         
         override init(frame: CGRect) {
             super.init(frame: CGRect(x: 0, y: 0, width: 200, height: 60))
@@ -131,11 +133,10 @@ class CustomButton: UIButton, MenuPresentable {
                 baseControl = BaseControl(frame: self.frame, title: "Slider")
                 self.addSubview(baseControl)
             }
-        }
-        
-        func showMenu(from viewController: UIViewController, at touchPoint: CGPoint) {
-                // CustomButton-specific menu presentation code goes here
+            else {
+                addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
             }
+        }
         
         override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
                 let hitTestView = super.hitTest(point, with: event)
@@ -146,9 +147,23 @@ class CustomButton: UIButton, MenuPresentable {
                 return hitTestView
             }
         }
+        
+        @objc private func sliderValueChanged(_ sender: UISlider) {
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(updateSlider), object: nil)
+            self.perform(#selector(updateSlider), with: nil, afterDelay: 0.2)
+        }
+        
+        @objc private func updateSlider() {
+            if selectedFunction != "None" {
+                let sliderValue = self.value
+                print("Slider value changed: \(sliderValue)")
+                sendMessage(path: "change-slider", message: "\(selectedFunction)###\(sliderValue)")
+            }
+        }
+        
     }
     
-    class CustomToggle: UIView, MenuPresentable {
+    class CustomToggle: UIView {
         
         private var baseControl: BaseControl!
         private var thumbView: UIView!
@@ -196,10 +211,6 @@ class CustomButton: UIButton, MenuPresentable {
             }
         }
         
-        func showMenu(from viewController: UIViewController, at touchPoint: CGPoint) {
-                // CustomButton-specific menu presentation code goes here
-            }
-        
         override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
                 let hitTestView = super.hitTest(point, with: event)
                 return hitTestView == self && isEditMode ? baseControl : hitTestView
@@ -217,7 +228,7 @@ class CustomButton: UIButton, MenuPresentable {
         }
     }
     
-    class CustomColor: UIColorWell, MenuPresentable {
+    class CustomColor: UIColorWell {
         
         private var baseControl: BaseControl!
         private var isEditMode: Bool = true
@@ -245,17 +256,13 @@ class CustomButton: UIButton, MenuPresentable {
             }
         }
         
-        func showMenu(from viewController: UIViewController, at touchPoint: CGPoint) {
-                // CustomButton-specific menu presentation code goes here
-            }
-        
         override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
                 let hitTestView = super.hitTest(point, with: event)
                 return hitTestView == self && isEditMode ? baseControl : hitTestView
         }
     }
     
-    class CustomJoystick: UIView, MenuPresentable {
+    class CustomJoystick: UIView {
         
         private var thumbView: UIView!
         private var touchPointThumb: CGPoint?
@@ -306,10 +313,6 @@ class CustomButton: UIButton, MenuPresentable {
                 self.addSubview(baseControl)
             }
         }
-        
-        func showMenu(from viewController: UIViewController, at touchPoint: CGPoint) {
-                // CustomButton-specific menu presentation code goes here
-            }
         
         override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
                 let hitTestView = super.hitTest(point, with: event)
