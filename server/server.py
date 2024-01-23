@@ -15,6 +15,10 @@ mousePressed = False
 def about():
     return 'Load success'
 
+@app.route('/start-recordining', methods=['POST'])
+def start_recording():
+    
+
 @app.route('/change-slider', methods=['POST'])
 def receive_slider_change():
     data = request.get_data(as_text=True)
