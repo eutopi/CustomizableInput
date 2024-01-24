@@ -1,7 +1,13 @@
 import subprocess
 import platform
+from ctypes import cast, POINTER
+from comtypes import CLSCTX_ALL
+from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
 
 class SliderModule:
+    devices = AudioUtilities.GetSpeakers()
+    interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
+    volume_object = cast(interface, POINTER(IAudioEndpointVolume))
 
     def __init__(self):
         self.function_dict = {
@@ -19,16 +25,17 @@ class SliderModule:
             print(f"Function '{name}' not found.")
 
     def set_volume(self, volume):
+        print(volume)
         try:
             # Check the platform to determine the appropriate command
             if platform.system() == 'Darwin':  # macOS
-                subprocess.run(['osascript', '-e', f'set volume output volume {volume}'])
+                subprocess.run(['osascript', '-e', f'set volume output volume {int(volume*100)}'])
             elif platform.system() == 'Windows':
-                subprocess.run(['nircmd.exe', 'setsysvolume', str(volume)])
+                self.volume_object.SetMasterVolumeLevelScalar(volume, None)
             elif platform.system() == 'Linux':
                 subprocess.run(['amixer', '-D', 'pulse', 'sset', 'Master', f'{volume}%'])
         except Exception as e:
             print(f"Error setting volume: {e}")
 
 my_instance = SliderModule()
-result = my_instance.call_function('Volume (default)', 50)
+result = my_instance.call_function('Volume (default)', 0.6)

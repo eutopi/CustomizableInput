@@ -61,7 +61,7 @@ def press_button():
 def change_slider():
     data = request.get_data(as_text=True)
     data = data.split("###")
-    sliderModule.call_function(data[0], int(float(data[1])*100))
+    sliderModule.call_function(data[0], float(data[1]))
     print(f"Received slider change with data: {data[0]} {data[1]}")
     return f"{data[0]} {data[1]}"
     # function = 
@@ -116,11 +116,4 @@ def already_pressed(l, a, b):
 if __name__ == '__main__':
     ip_address = socket.gethostbyname(socket.gethostname())
     print(f"Flask app running at http://{ip_address}:5000/")
-    # mac
-    app.run(host='192.168.86.29', port=5000, debug=True, threaded=False)
-
-    # app.run(host='192.168.86.106', port=5000, debug=True, threaded=False)
-    # mac at brown
-    # app.run(host='10.39.14.93', port=5000, debug=True, threaded=False)
-    # windows machine
-    # app.run(host='192.168.86.111', port=5000, debug=True, threaded=False)
+    app.run(host=ip_address, port=5000, debug=True, threaded=False)
