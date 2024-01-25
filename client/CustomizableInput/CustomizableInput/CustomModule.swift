@@ -9,6 +9,7 @@ import UIKit
 
 protocol CustomModule: UIView{
     var selectedFunction: String { get set }
+    
 }
 
 class CustomButton: UIButton, CustomModule {
@@ -46,12 +47,22 @@ class CustomButton: UIButton, CustomModule {
             baseControl = BaseControl(frame: self.frame, title: "Button")
             self.addSubview(baseControl)
         }
+        else {
+            addTarget(self, action: #selector(tapButton(_:)), for: .touchUpInside)
+        }
     }
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
             let hitTestView = super.hitTest(point, with: event)
             return hitTestView == self && isEditMode ? baseControl : hitTestView
         }
+    
+    @objc private func tapButton(_ sender: UIButton) {
+        if selectedFunction != "None" {
+            print("Button tapped.")
+            sendMessage(path: "press-button", message: "\(selectedFunction)###")
+        }
+    }
 }
     
     class CustomSlider: UISlider, CustomModule {
@@ -69,18 +80,18 @@ class CustomButton: UIButton, CustomModule {
         
         override init(frame: CGRect) {
             super.init(frame: CGRect(x: 0, y: 0, width: 200, height: 60))
-            setupButton()
+            setupSlider()
         }
         
         init(frame: CGRect, isEditMode: Bool = true) {
             self.isEditMode = isEditMode
             super.init(frame: CGRect(x: 0, y: 0, width: 200, height: 60))
-            setupButton()
+            setupSlider()
         }
         
         required init?(coder aDecoder: NSCoder) {
             super.init(coder: aDecoder)
-            setupButton()
+            setupSlider()
         }
         
         private func thumbImage(radius: CGFloat) -> UIImage {
@@ -123,7 +134,7 @@ class CustomButton: UIButton, CustomModule {
             return image ?? UIImage()
         }
         
-        private func setupButton() {
+        private func setupSlider() {
             let thumb = thumbImage(radius: 20)
             setThumbImage(thumb, for: .normal)
             setMinimumTrackImage(createTrackImage(color: UIColor(hex: "59AAFF", alpha: 0.5), borderColor: UIColor(hex: "59AAFF", alpha: 1)), for: .normal)

@@ -9,8 +9,8 @@ import UIKit
 
 struct ModuleConstants {
     static let options: [String: [String]] = [
-        "Button": ["None", "Page Scroll Vertical (default)", "Page Scroll Horizontal (default)"],
-        "Slider": ["None", "Volume (default)", "Page Scroll Vertical (default)", "Page Scroll Horizontal (default)"],
+        "Button": ["None", "Copy", "Paste", "Auto-indent (VSCode)"],
+        "Slider": ["None", "Volume", "Page Scroll Vertical", "Page Scroll Horizontal"],
         "Color": ["None", "Page Scroll Vertical (default)", "Page Scroll Horizontal (default)"],
         "Toggle": ["None", "Page Scroll Vertical (default)", "Page Scroll Horizontal (default)"],
         "Joystick": ["None", "Page Scroll Vertical (default)", "Page Scroll Horizontal (default)"]

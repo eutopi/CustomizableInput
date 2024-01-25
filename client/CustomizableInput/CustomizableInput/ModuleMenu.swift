@@ -178,6 +178,7 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         testModule.selectedFunction = options[row]
         selectedOption = options[row]
+//        testModule.setTitle(options[row], for: .normal)
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
@@ -216,6 +217,7 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         recordStopButton.isHidden = false
         recordSaveButton.isEnabled = false
         recordSaveButton.alpha = 0.2
+        sendMessage(path: "start-recording", message: "\(newFunctionName.text ?? "")")
     }
     
     @objc func recordStopButtonTapped() {
@@ -223,12 +225,14 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         recordStopButton.isHidden = true
         recordSaveButton.isEnabled = true
         recordSaveButton.alpha = 1
+        sendMessage(path: "stop-recording", message: "\(newFunctionName.text ?? "")")
     }
     
     @objc func recordSaveButtonTapped() {
         options.append(newFunctionName.text!)
         pickerView.reloadAllComponents()
         removeFunctionTapped()
+        sendMessage(path: "upload-recording", message: "")
     }
 
     @objc func handleSelection() {

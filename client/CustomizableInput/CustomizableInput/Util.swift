@@ -34,7 +34,7 @@ public func createImageButton(imageColor: UIColor, textColor: UIColor, image: UI
 
 public func sendMessage(path: String, message: String) {
     // replace the IP address below as necessary
-    guard let url = URL(string: "http://192.168.86.29:5000/\(path)") else { return }
+    guard let url = URL(string: "http://192.168.86.31:5000/\(path)") else { return }
     
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
