@@ -7,6 +7,8 @@
 
 import UIKit
 
+var globalIDToFunctionDict: [String: String] = [:]
+
 struct ModuleConstants {
     static let options: [String: [String]] = [
         "Button": ["None", "Copy", "Paste", "Auto-indent (VSCode)", "Auto-indent (XCode)"],

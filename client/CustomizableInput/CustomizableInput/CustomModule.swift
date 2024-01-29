@@ -20,7 +20,7 @@ class CustomButton: UIButton, CustomModule {
         didSet { setNeedsLayout() }
     }
     
-    internal var selectedFunction: String = "None"
+    internal var selectedFunction: String = "Empty"
     internal var id: String = createRandomID()
     
     override init(frame: CGRect) {
@@ -54,7 +54,7 @@ class CustomButton: UIButton, CustomModule {
         
         if isEditMode {
             if baseControl == nil {
-                baseControl = BaseControl(frame: self.frame, title: "Button")
+                baseControl = BaseControl(frame: self.frame, title: "Button", id: self.id)
                 self.addSubview(baseControl)
             }
         } else {
@@ -71,10 +71,18 @@ class CustomButton: UIButton, CustomModule {
     }
     
     @objc private func tapButton(_ sender: UIButton) {
-        print("here")
-        if selectedFunction != "None" {
-            print("Button tapped.")
-            sendMessage(path: "press-button", message: "\(selectedFunction)###")
+        if selectedFunction == "Empty" {
+            let function = globalIDToFunctionDict[self.id] ?? "None"
+            print(function)
+            if function != "None" {
+                sendMessage(path: "press-button", message: "\(selectedFunction)###")
+            }
+        }
+        else {
+            if selectedFunction != "None" {
+                print(selectedFunction)
+                sendMessage(path: "press-button", message: "\(selectedFunction)###")
+            }
         }
     }
 }
@@ -92,7 +100,7 @@ class CustomButton: UIButton, CustomModule {
         internal var isEditMode: Bool = true {
             didSet { setNeedsLayout() }
         }
-        internal var selectedFunction: String = "None"
+        internal var selectedFunction: String = "Empty"
         internal var id: String = createRandomID()
         
         override init(frame: CGRect) {
@@ -163,7 +171,7 @@ class CustomButton: UIButton, CustomModule {
             
             if isEditMode {
                 if baseControl == nil {
-                    baseControl = BaseControl(frame: self.frame, title: "Slider")
+                    baseControl = BaseControl(frame: self.frame, title: "Slider", id: self.id)
                     self.addSubview(baseControl)
                 }
             } else {
@@ -190,10 +198,19 @@ class CustomButton: UIButton, CustomModule {
         }
         
         @objc private func updateSlider() {
-            if selectedFunction != "None" {
-                let sliderValue = self.value
-                print("Slider value changed: \(sliderValue)")
-                sendMessage(path: "change-slider", message: "\(selectedFunction)###\(sliderValue)")
+            let sliderValue = self.value
+            if selectedFunction == "Empty" {
+                let function = globalIDToFunctionDict[self.id] ?? "None"
+                if function != "None" {
+                    print("Slider value changed: \(sliderValue)")
+                    sendMessage(path: "change-slider", message: "\(function)###\(sliderValue)")
+                }
+            }
+            else {
+                if selectedFunction != "None" {
+                    print("Slider value changed: \(sliderValue)")
+                    sendMessage(path: "change-slider", message: "\(selectedFunction)###\(sliderValue)")
+                }
             }
         }
         
@@ -207,7 +224,7 @@ class CustomButton: UIButton, CustomModule {
         internal var isEditMode: Bool = true {
             didSet { setNeedsLayout() }
         }
-        internal var selectedFunction: String = "None"
+        internal var selectedFunction: String = "Empty"
         internal var id: String = createRandomID()
         
         override init(frame: CGRect) {
@@ -247,7 +264,7 @@ class CustomButton: UIButton, CustomModule {
             
             if isEditMode {
                 if baseControl == nil {
-                    baseControl = BaseControl(frame: self.frame, title: "Toggle")
+                    baseControl = BaseControl(frame: self.frame, title: "Toggle", id: self.id)
                     self.addSubview(baseControl)
                 }
             } else {
@@ -283,7 +300,7 @@ class CustomButton: UIButton, CustomModule {
         internal var isEditMode: Bool = true {
             didSet { setNeedsLayout() }
         }
-        internal var selectedFunction: String = "None"
+        internal var selectedFunction: String = "Empty"
         internal var id: String = createRandomID()
         
         override init(frame: CGRect) {
@@ -310,7 +327,7 @@ class CustomButton: UIButton, CustomModule {
             
             if isEditMode {
                 if baseControl == nil {
-                    baseControl = BaseControl(frame: self.frame, title: "Color")
+                    baseControl = BaseControl(frame: self.frame, title: "Color", id: self.id)
                     self.addSubview(baseControl)
                 }
             } else {
@@ -335,7 +352,7 @@ class CustomButton: UIButton, CustomModule {
         internal var isEditMode: Bool = true {
             didSet { setNeedsLayout() }
         }
-        internal var selectedFunction: String = "None"
+        internal var selectedFunction: String = "Empty"
         internal var id: String = createRandomID()
         
         override init(frame: CGRect) {
@@ -380,7 +397,7 @@ class CustomButton: UIButton, CustomModule {
             
             if isEditMode {
                 if baseControl == nil {
-                    baseControl = BaseControl(frame: self.frame, title: "Joystick")
+                    baseControl = BaseControl(frame: self.frame, title: "Joystick", id: self.id)
                     self.addSubview(baseControl)
                 }
             } else {

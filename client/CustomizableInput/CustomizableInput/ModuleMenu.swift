@@ -10,6 +10,7 @@ import UIKit
 class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     var titleText: String = "None"
+    var id: String = ""
     var options: [String] = []
     var selectedOption: String?
     
@@ -25,9 +26,10 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     var blackRectangle: UIView = UIView()
     var testModule: CustomModule = CustomButton()
 
-    init(title: String) {
+    init(title: String, id: String) {
         super.init(nibName: nil, bundle: nil)
         self.titleText = title
+        self.id = id
         self.options = ModuleConstants.options[title]!
     }
 
@@ -121,6 +123,11 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         view.addSubview(blackRectangle)
 
         testModule = ModuleConstants.module[titleText]! as! any CustomModule
+        testModule.selectedFunction = globalIDToFunctionDict[self.id] ?? "None"
+        if let selectedRow = options.firstIndex(of: testModule.selectedFunction) {
+                    pickerView.selectRow(selectedRow, inComponent: 0, animated: false)
+            }
+        selectedOption = testModule.selectedFunction
         view.addSubview(testModule)
 
         // Set up constraints
@@ -241,10 +248,8 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         } else {
             print("No option selected")
         }
+        globalIDToFunctionDict[self.id] = selectedOption
         dismiss(animated: true, completion: nil)
-        
-//        UserDefaults.standard.set([: selectedOption], forKey: "IDToFunctionDictionary")
-
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

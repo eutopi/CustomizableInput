@@ -15,10 +15,12 @@ class BaseControl: UIControl, MenuPresentable {
 
     private var touchPoint: CGPoint?
     private var moduleTitle = "Undefined Module"
+    private var moduleID = ""
 
-    init(frame: CGRect, title: String) {
+    init(frame: CGRect, title: String, id: String) {
         super.init(frame: frame)
         self.moduleTitle = title
+        self.moduleID = id
         setupControl()
     }
 
@@ -60,7 +62,7 @@ class BaseControl: UIControl, MenuPresentable {
 
     func showMenu(from viewController: UIViewController, at touchPoint: CGPoint) {
         // Create a custom view controller for the menu
-        let menuViewController = MenuViewController(title: moduleTitle)
+        let menuViewController = MenuViewController(title: moduleTitle, id: moduleID)
 
         // Set the presentation style to popover
         menuViewController.modalPresentationStyle = .popover
