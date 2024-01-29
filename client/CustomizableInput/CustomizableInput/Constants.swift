@@ -9,7 +9,7 @@ import UIKit
 
 struct ModuleConstants {
     static let options: [String: [String]] = [
-        "Button": ["None", "Copy", "Paste", "Auto-indent (VSCode)"],
+        "Button": ["None", "Copy", "Paste", "Auto-indent (VSCode)", "Auto-indent (XCode)"],
         "Slider": ["None", "Volume", "Page Scroll Vertical", "Page Scroll Horizontal"],
         "Color": ["None", "Page Scroll Vertical (default)", "Page Scroll Horizontal (default)"],
         "Toggle": ["None", "Page Scroll Vertical (default)", "Page Scroll Horizontal (default)"],

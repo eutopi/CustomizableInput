@@ -238,10 +238,13 @@ class MenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     @objc func handleSelection() {
         if let selectedOption = selectedOption {
             print("Selected Option: \(selectedOption)")
-            dismiss(animated: true, completion: nil)
         } else {
             print("No option selected")
         }
+        dismiss(animated: true, completion: nil)
+        
+//        UserDefaults.standard.set([: selectedOption], forKey: "IDToFunctionDictionary")
+
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -32,6 +32,21 @@ public func createImageButton(imageColor: UIColor, textColor: UIColor, image: UI
     return imageButton
 }
 
+public func createRandomID() -> String {
+    let length = 16
+    let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    
+    var randomID = ""
+    
+    for _ in 0..<length {
+        let randomIndex = Int(arc4random_uniform(UInt32(characters.count)))
+        let randomCharacter = characters[characters.index(characters.startIndex, offsetBy: randomIndex)]
+        randomID.append(randomCharacter)
+    }
+    
+    return randomID
+}
+
 public func sendMessage(path: String, message: String) {
     // replace the IP address below as necessary
     guard let url = URL(string: "http://192.168.86.31:5000/\(path)") else { return }

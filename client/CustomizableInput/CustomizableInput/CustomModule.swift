@@ -9,14 +9,19 @@ import UIKit
 
 protocol CustomModule: UIView{
     var selectedFunction: String { get set }
-    
+    var isEditMode: Bool { get set }
+    var id: String { get }
 }
 
 class CustomButton: UIButton, CustomModule {
     
     private var baseControl: BaseControl!
-    private var isEditMode: Bool = true
+    internal var isEditMode: Bool = true {
+        didSet { setNeedsLayout() }
+    }
+    
     internal var selectedFunction: String = "None"
+    internal var id: String = createRandomID()
     
     override init(frame: CGRect) {
         super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
@@ -42,22 +47,31 @@ class CustomButton: UIButton, CustomModule {
         self.layer.borderColor = UIColor(hex: "B17DFF", alpha: 1).cgColor
         self.layer.cornerRadius = 5.0
         self.layer.masksToBounds = true
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
         
-        if (isEditMode) {
-            baseControl = BaseControl(frame: self.frame, title: "Button")
-            self.addSubview(baseControl)
+        if isEditMode {
+            if baseControl == nil {
+                baseControl = BaseControl(frame: self.frame, title: "Button")
+                self.addSubview(baseControl)
+            }
+        } else {
+            baseControl?.removeFromSuperview()
+            baseControl = nil
         }
-        else {
-            addTarget(self, action: #selector(tapButton(_:)), for: .touchUpInside)
-        }
+        
+        addTarget(self, action: #selector(tapButton(_:)), for: .touchUpInside)
     }
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-            let hitTestView = super.hitTest(point, with: event)
-            return hitTestView == self && isEditMode ? baseControl : hitTestView
-        }
+        let hitTestView = super.hitTest(point, with: event)
+        return hitTestView == self && isEditMode ? baseControl : hitTestView
+    }
     
     @objc private func tapButton(_ sender: UIButton) {
+        print("here")
         if selectedFunction != "None" {
             print("Button tapped.")
             sendMessage(path: "press-button", message: "\(selectedFunction)###")
@@ -75,8 +89,11 @@ class CustomButton: UIButton, CustomModule {
             thumb.layer.borderColor = UIColor.white.cgColor
             return thumb
         }()
-        private var isEditMode: Bool = true
+        internal var isEditMode: Bool = true {
+            didSet { setNeedsLayout() }
+        }
         internal var selectedFunction: String = "None"
+        internal var id: String = createRandomID()
         
         override init(frame: CGRect) {
             super.init(frame: CGRect(x: 0, y: 0, width: 200, height: 60))
@@ -139,14 +156,22 @@ class CustomButton: UIButton, CustomModule {
             setThumbImage(thumb, for: .normal)
             setMinimumTrackImage(createTrackImage(color: UIColor(hex: "59AAFF", alpha: 0.5), borderColor: UIColor(hex: "59AAFF", alpha: 1)), for: .normal)
             setMaximumTrackImage(createTrackImage(color: UIColor(hex: "181717", alpha: 1), borderColor: UIColor(hex: "FFFFFF", alpha: 0.4)), for: .normal)
+        }
+        
+        override func layoutSubviews() {
+            super.layoutSubviews()
             
-            if (isEditMode) {
-                baseControl = BaseControl(frame: self.frame, title: "Slider")
-                self.addSubview(baseControl)
+            if isEditMode {
+                if baseControl == nil {
+                    baseControl = BaseControl(frame: self.frame, title: "Slider")
+                    self.addSubview(baseControl)
+                }
+            } else {
+                baseControl?.removeFromSuperview()
+                baseControl = nil
             }
-            else {
-                addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
-            }
+            
+            addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
         }
         
         override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
@@ -174,12 +199,16 @@ class CustomButton: UIButton, CustomModule {
         
     }
     
-    class CustomToggle: UIView {
+    class CustomToggle: UIView, CustomModule {
         
         private var baseControl: BaseControl!
         private var thumbView: UIView!
         private var isOn = false
-        private var isEditMode: Bool = true
+        internal var isEditMode: Bool = true {
+            didSet { setNeedsLayout() }
+        }
+        internal var selectedFunction: String = "None"
+        internal var id: String = createRandomID()
         
         override init(frame: CGRect) {
             super.init(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
@@ -211,16 +240,25 @@ class CustomButton: UIButton, CustomModule {
             thumbView.layer.borderWidth = 1.0
             thumbView.layer.borderColor = UIColor.white.cgColor
             addSubview(thumbView)
-            
-            if (isEditMode) {
-                baseControl = BaseControl(frame: self.frame, title: "Toggle")
-                self.addSubview(baseControl)
-            }
-            else {
-                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggle))
-                self.addGestureRecognizer(tapGestureRecognizer)
-            }
         }
+        
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            
+            if isEditMode {
+                if baseControl == nil {
+                    baseControl = BaseControl(frame: self.frame, title: "Toggle")
+                    self.addSubview(baseControl)
+                }
+            } else {
+                baseControl?.removeFromSuperview()
+                baseControl = nil
+            }
+            
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggle))
+            self.addGestureRecognizer(tapGestureRecognizer)
+        }
+
         
         override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
                 let hitTestView = super.hitTest(point, with: event)
@@ -239,10 +277,14 @@ class CustomButton: UIButton, CustomModule {
         }
     }
     
-    class CustomColor: UIColorWell {
+    class CustomColor: UIColorWell, CustomModule {
         
         private var baseControl: BaseControl!
-        private var isEditMode: Bool = true
+        internal var isEditMode: Bool = true {
+            didSet { setNeedsLayout() }
+        }
+        internal var selectedFunction: String = "None"
+        internal var id: String = createRandomID()
         
         override init(frame: CGRect) {
             super.init(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
@@ -261,10 +303,22 @@ class CustomButton: UIButton, CustomModule {
         }
         
         private func setupColor() {
-            if (isEditMode) {
-                baseControl = BaseControl(frame: self.frame, title: "Color")
-                self.addSubview(baseControl)
+        }
+        
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            
+            if isEditMode {
+                if baseControl == nil {
+                    baseControl = BaseControl(frame: self.frame, title: "Color")
+                    self.addSubview(baseControl)
+                }
+            } else {
+                baseControl?.removeFromSuperview()
+                baseControl = nil
             }
+            
+            // play mode color stuff here
         }
         
         override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
@@ -273,12 +327,16 @@ class CustomButton: UIButton, CustomModule {
         }
     }
     
-    class CustomJoystick: UIView {
+    class CustomJoystick: UIView, CustomModule {
         
         private var thumbView: UIView!
         private var touchPointThumb: CGPoint?
         private var baseControl: BaseControl!
-        private var isEditMode: Bool = true
+        internal var isEditMode: Bool = true {
+            didSet { setNeedsLayout() }
+        }
+        internal var selectedFunction: String = "None"
+        internal var id: String = createRandomID()
         
         override init(frame: CGRect) {
             super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
@@ -314,15 +372,24 @@ class CustomButton: UIButton, CustomModule {
             thumbView.layer.borderWidth = 1.0
             thumbView.layer.borderColor = UIColor.white.cgColor
             addSubview(thumbView)
+
+        }
+        
+        override func layoutSubviews() {
+            super.layoutSubviews()
             
+            if isEditMode {
+                if baseControl == nil {
+                    baseControl = BaseControl(frame: self.frame, title: "Joystick")
+                    self.addSubview(baseControl)
+                }
+            } else {
+                baseControl?.removeFromSuperview()
+                baseControl = nil
+            }
             
             let panGestureRecognizerThumb = UIPanGestureRecognizer(target: self, action: #selector(handlePanGestureThumb(_:)))
             thumbView.addGestureRecognizer(panGestureRecognizerThumb)
-            
-            if (isEditMode) {
-                baseControl = BaseControl(frame: self.frame, title: "Joystick")
-                self.addSubview(baseControl)
-            }
         }
         
         override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {

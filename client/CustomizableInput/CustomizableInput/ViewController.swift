@@ -38,6 +38,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
     @IBOutlet weak var canvasTitleTextField: UITextField!
     @IBOutlet weak var canvas: UIView!
     
+    @IBOutlet weak var canvasModeBtn: UIButton!
+    
     @IBOutlet weak var moduleSliderBtn: UIImageView!
     @IBOutlet weak var moduleToggleBtn: UIImageView!
     @IBOutlet weak var moduleJoystickBtn: UIImageView!
@@ -47,6 +49,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
     
     var copiedImageView: UIImageView?
     var slider: UISlider?
+    var moduleDictionary: [String: CustomModule] = [:]
+
     
     // previous stuff, remove later
     @IBOutlet weak var leftButton: UIButton!
@@ -77,6 +81,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
         trashIcon.alpha = 0.7
         trashIcon.tag = -1
         
+        canvasModeBtn.isSelected = true
+        canvasModeBtn.setImage(UIImage(named: "ToggleEditBtn"), for: .selected)
+        canvasModeBtn.setImage(UIImage(named: "TogglePlayBtn"), for: .normal)
+        canvasModeBtn.addTarget(self, action: #selector(canvasModeBtnTapped), for: .touchUpInside)
+
         // Initialize slider gestures
         let panGestureSlider = CustomPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         panGestureSlider.bindedModule = moduleSliderBtn
@@ -113,6 +122,24 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
         return true
     }
     
+    @objc func canvasModeBtnTapped() {
+        canvasModeBtn.isSelected.toggle()
+        print(moduleDictionary.count)
+        for module in moduleDictionary.values {
+            module.isEditMode = canvasModeBtn.isSelected
+            print(module.isEditMode)
+            if ((module.superview) == nil) {
+                moduleDictionary.removeValue(forKey: module.id)
+            }
+        }
+        if (canvasModeBtn.isSelected) {
+            trashIcon.alpha = 0.7
+        }
+        else {
+            trashIcon.alpha = 0
+        }
+    }
+    
     @objc func handlePan(_ gesture: CustomPanGestureRecognizer) {
         let translation = gesture.translation(in: trackingView)
         
@@ -136,7 +163,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
                         copiedImageView.removeFromSuperview()
                         if let newModule = createModule(moduleType: moduleType) {
                             newModule.frame = CGRect(x: convertedFrame.minX, y: convertedFrame.minY, width: newModule.frame.width, height: newModule.frame.height)
+                            newModule.isEditMode = canvasModeBtn.isSelected
                             canvasView.addSubview(newModule)
+                            moduleDictionary[newModule.id] = newModule
                         } else {
                             print("Failed to create module for moduleType:", moduleType)
                         }
@@ -151,7 +180,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
         }
     }
     
-    func createModule(moduleType: String) -> UIView? {
+    func createModule(moduleType: String) -> CustomModule? {
         switch moduleType {
         case "button":
             return CustomButton()

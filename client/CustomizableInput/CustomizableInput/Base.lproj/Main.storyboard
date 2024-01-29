@@ -48,7 +48,7 @@
                                 <color key="backgroundColor" red="0.094097383320000005" green="0.090198226270000001" blue="0.090196020900000007" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </view>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Custom Title" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qng-B3-q2a">
-                                <rect key="frame" x="236" y="27" width="579" height="34"/>
+                                <rect key="frame" x="236" y="27" width="511" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -67,12 +67,21 @@
                                 <rect key="frame" x="823" y="27" width="35" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="daf-hI-aTL">
+                                <rect key="frame" x="750" y="27" width="71" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="">
+                                    <color key="baseBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.18037173149999999" green="0.17647272350000001" blue="0.1764705479" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <gestureRecognizers/>
                     </view>
                     <connections>
+                        <outlet property="canvasModeBtn" destination="daf-hI-aTL" id="584-sz-U8b"/>
                         <outlet property="canvasTitleTextField" destination="Qng-B3-q2a" id="9FZ-Jh-jof"/>
                         <outlet property="canvasView" destination="naa-15-0lU" id="lYc-ph-87t"/>
                         <outlet property="moduleButtonBtn" destination="n5Q-zZ-pu6" id="Z7M-71-SDK"/>

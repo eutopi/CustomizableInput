@@ -96,7 +96,7 @@ class BaseControl: UIControl, MenuPresentable {
             let touchPointEnd = sender.location(in: superview)
             if let imageView = findImageView(at: touchPointEnd, superview: superview) {
                 if imageView.tag == -1 {
-                    self.removeFromSuperview()
+                    self.superview!.removeFromSuperview()
                 }
             }
             
